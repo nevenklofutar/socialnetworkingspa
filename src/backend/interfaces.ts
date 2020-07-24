@@ -5,7 +5,13 @@ export class User {
     userName: string;
     password: string;
     email: string;
-    organizationId: number;
     phoneNumber: string;
     roles: string[];
+
+    constructor() {}
+}
+
+export interface RegisterConfirmParams {
+    email: string;
+    token: string;
 }

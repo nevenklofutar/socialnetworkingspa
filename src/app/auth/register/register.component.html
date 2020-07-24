@@ -1,11 +1,15 @@
 <!-- Classes main-div and example-card are catagorized in .css file -->
 <div class="main-div">
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>Register</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form class="example-form">
+    <form
+        class="example-form"
+        [formGroup]="registrationForm"
+        (ngSubmit)="onSubmit()"
+    >
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Register</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
                 <table class="example-full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -15,7 +19,7 @@
                                 class="example-card"
                             >
                                 <mat-label>First name</mat-label>
-                                <input matInput />
+                                <input matInput formControlName="firstName" />
                             </mat-form-field>
                         </td>
                     </tr>
@@ -27,54 +31,7 @@
                                 class="example-card"
                             >
                                 <mat-label>Last name</mat-label>
-                                <input matInput />
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-form-field
-                                appearance="outline"
-                                color="primary"
-                                class="example-card"
-                            >
-                                <mat-label>Username</mat-label>
-                                <input
-                                    matInput
-                                    required
-                                    [formControl]="usernameFormControl"
-                                />
-                                <mat-error
-                                    *ngIf="
-                                        usernameFormControl.hasError('required')
-                                    "
-                                >
-                                    Username is <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-form-field
-                                appearance="outline"
-                                color="primary"
-                                class="example-card"
-                            >
-                                <mat-label>Password</mat-label>
-                                <input
-                                    matInput
-                                    required
-                                    [formControl]="passwordFormControl"
-                                />
-                                <mat-hint align="end">Min 5 chars</mat-hint>
-                                <mat-error
-                                    *ngIf="
-                                        passwordFormControl.hasError('required')
-                                    "
-                                >
-                                    Password is <strong>required</strong>
-                                </mat-error>
+                                <input matInput formControlName="lastName" />
                             </mat-form-field>
                         </td>
                     </tr>
@@ -89,16 +46,30 @@
                                 <input
                                     matInput
                                     required
-                                    [formControl]="emailFormControl"
+                                    formControlName="email"
                                     placeholder="Ex. name@example.com"
                                 />
                                 <mat-error
                                     *ngIf="
-                                        emailFormControl.hasError('email') &&
-                                        !emailFormControl.hasError('required')
+                                        registrationForm.controls.email.invalid
                                     "
                                 >
-                                    Please enter a valid email address
+                                    <span
+                                        *ngIf="
+                                            registrationForm.controls.email
+                                                .errors.required
+                                        "
+                                        >Email is
+                                        <strong>required</strong></span
+                                    >
+                                    <span
+                                        *ngIf="
+                                            registrationForm.controls.email
+                                                .errors.email
+                                        "
+                                        >Please enter a valid email
+                                        address</span
+                                    >
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -111,25 +82,115 @@
                                 class="example-card"
                             >
                                 <mat-label>Phone number</mat-label>
-                                <input matInput />
+                                <input matInput formControlName="phonenumber" />
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field
+                                appearance="outline"
+                                color="primary"
+                                class="example-card"
+                            >
+                                <mat-label>Username</mat-label>
+                                <input
+                                    matInput
+                                    required
+                                    formControlName="username"
+                                />
+                                <mat-error
+                                    *ngIf="
+                                        registrationForm.controls.username
+                                            .touched &&
+                                        registrationForm.controls.username
+                                            .invalid
+                                    "
+                                >
+                                    <span
+                                        >Username is
+                                        <strong>required</strong></span
+                                    >
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field
+                                appearance="outline"
+                                color="primary"
+                                class="example-card"
+                            >
+                                <mat-label>Password</mat-label>
+                                <input
+                                    type="input"
+                                    matInput
+                                    required
+                                    formControlName="password"
+                                />
+                                <mat-error>
+                                    Password is
+                                    <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field
+                                appearance="outline"
+                                color="primary"
+                                class="example-card"
+                            >
+                                <mat-label>Password confirm</mat-label>
+                                <input
+                                    type="input"
+                                    matInput
+                                    required
+                                    formControlName="passwordConfirm"
+                                />
+                                <mat-error
+                                    *ngIf="
+                                        registrationForm.controls
+                                            .passwordConfirm.errors?.required
+                                    "
+                                >
+                                    Password confirm is
+                                    <strong>required</strong>
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="
+                                        registrationForm.controls
+                                            .passwordConfirm.errors?.mismatch
+                                    "
+                                >
+                                    Passwords must
+                                    <strong>match</strong>
+                                </mat-error>
                             </mat-form-field>
                         </td>
                     </tr>
                 </table>
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary">
-                Register
-            </button>
-            <a
-                mat-raised-button
-                color="accent"
-                style="float: right;"
-                href="/auth/login"
-            >
-                Login
-            </a>
-        </mat-card-actions>
-    </mat-card>
+            </mat-card-content>
+            <mat-card-actions>
+                <button
+                    type="submit"
+                    [disabled]="!registrationForm.valid"
+                    mat-raised-button
+                    color="primary"
+                >
+                    Register
+                </button>
+                <a
+                    mat-raised-button
+                    color="accent"
+                    style="float: right;"
+                    href="/auth/login"
+                >
+                    Login
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </form>
 </div>

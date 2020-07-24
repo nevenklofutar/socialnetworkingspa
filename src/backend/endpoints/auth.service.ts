@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { User } from '../interfaces';
+import { User, RegisterConfirmParams } from '../interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -11,11 +11,11 @@ export class AuthService {
 
     constructor(private http: HttpClient) {}
 
-    login(model: any) {
-        return this.http.post(this.baseUrl + 'login', model);
-    }
-
     register(user: User) {
         return this.http.post(this.baseUrl + 'register', user);
+    }
+
+    registerConfirm(params: RegisterConfirmParams) {
+        return this.http.post(this.baseUrl + 'confirmregisteremail', params);
     }
 }
