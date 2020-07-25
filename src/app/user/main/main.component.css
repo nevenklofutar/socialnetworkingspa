@@ -1,0 +1,22 @@
+.main-div {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardList {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+/* Row Gap */
+.cardList > *:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.post-button {
+    margin-left: 5px;
+    float: right;
+}

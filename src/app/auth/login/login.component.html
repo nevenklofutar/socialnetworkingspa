@@ -1,11 +1,11 @@
 <!-- Classes main-div and example-card are catagorized in .css file -->
 <div class="main-div">
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>Login</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form class="example-form">
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Login</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
                 <table class="example-full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -18,14 +18,18 @@
                                 <input
                                     matInput
                                     required
-                                    [formControl]="usernameFormControl"
+                                    formControlName="username"
                                 />
                                 <mat-error
                                     *ngIf="
-                                        usernameFormControl.hasError('required')
+                                        loginForm.controls.username.touched &&
+                                        loginForm.controls.username.invalid
                                     "
                                 >
-                                    Username is <strong>required</strong>
+                                    <span
+                                        >Username is
+                                        <strong>required</strong></span
+                                    >
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -39,37 +43,40 @@
                             >
                                 <mat-label>Password</mat-label>
                                 <input
+                                    type="input"
                                     matInput
                                     required
-                                    [formControl]="passwordFormControl"
+                                    formControlName="password"
                                 />
-                                <mat-error
-                                    *ngIf="
-                                        passwordFormControl.hasError('required')
-                                    "
-                                >
-                                    Password is <strong>required</strong>
+                                <mat-error>
+                                    Password is
+                                    <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
                     </tr>
                 </table>
-            </form>
-            <br />
-            <a mat-button href="/auth/forgotpassword">Forgot password</a>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary">
-                Login
-            </button>
-            <a
-                mat-raised-button
-                color="accent"
-                style="float: right;"
-                href="/auth/register"
-            >
-                Register
-            </a>
-        </mat-card-actions>
-    </mat-card>
+                <br />
+                <a mat-button href="/auth/forgotpassword">Forgot password</a>
+            </mat-card-content>
+            <mat-card-actions>
+                <button
+                    type="submit"
+                    [disabled]="!loginForm.valid"
+                    mat-raised-button
+                    color="primary"
+                >
+                    Login
+                </button>
+                <a
+                    mat-raised-button
+                    color="accent"
+                    style="float: right;"
+                    href="/auth/register"
+                >
+                    Register
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </form>
 </div>

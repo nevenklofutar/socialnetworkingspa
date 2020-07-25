@@ -8,3 +8,25 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.main-div {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.example-card {
+    width: 300px;
+}
+
+.user-profile-card {
+    width: 600px;
+}
+
+.post-list-post {
+    border: 1px solid lightgray;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px;
+}

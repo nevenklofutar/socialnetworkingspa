@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+    FormControl,
+    Validators,
+    FormGroup,
+    FormBuilder,
+} from '@angular/forms';
+import { AuthService } from 'src/backend/endpoints/auth.service';
+import { AlertifyService } from 'src/app/shared/_services/alertify.service';
+import { UserToLogin } from 'src/backend/interfaces';
 
 @Component({
     selector: 'app-login',
@@ -7,10 +15,37 @@ import { FormControl, Validators } from '@angular/forms';
     styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-    usernameFormControl = new FormControl('', [Validators.required]);
-    passwordFormControl = new FormControl('', [Validators.required]);
+    public loginForm: FormGroup;
+    private userToLogin: UserToLogin = { username: '', password: '' };
 
-    constructor() {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
+        private alertifyService: AlertifyService
+    ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.buildForm();
+    }
+
+    buildForm() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', [Validators.required]],
+            password: ['', [Validators.required]],
+        });
+    }
+
+    onSubmit() {
+        this.userToLogin.username = this.loginForm.controls.username.value;
+        this.userToLogin.password = this.loginForm.controls.password.value;
+
+        this.authService.login(this.userToLogin).subscribe(
+            (data) => {
+                this.alertifyService.success('logged in');
+            },
+            (error) => {
+                this.alertifyService.error('error logging in');
+            }
+        );
+    }
 }

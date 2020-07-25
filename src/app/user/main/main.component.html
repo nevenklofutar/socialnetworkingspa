@@ -1,0 +1,73 @@
+<!-- Classes main-div and example-card are catagorized in .css file -->
+
+<div class="cardList" fxLayout="column" fxLayoutGap="5px">
+    <div class="main-div">
+        <mat-card class="user-profile-card">
+            <mat-card-header>
+                <mat-card-title>Profile</mat-card-title>
+                <mat-card-subtitle>{{
+                    this.currentUser?.username
+                }}</mat-card-subtitle>
+                <form
+                    [formGroup]="newPostForm"
+                    (ngSubmit)="onSubmit()"
+                    style="width: 100%;"
+                >
+                    <div name="newPostDiv">
+                        <mat-form-field
+                            appearance="outline"
+                            color="primary"
+                            class="example-card"
+                            style="width: 100%;"
+                        >
+                            <!-- <mat-label>Write something...</mat-label> -->
+                            <textarea
+                                matInput
+                                formControlName="newpost"
+                                maxlength="255"
+                                (focus)="this.showPostButtons = true"
+                                cdkTextareaAutosize
+                            >
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+                    <div name="newPostButtonsDiv" *ngIf="showPostButtons">
+                        <button
+                            type="submit"
+                            mat-raised-button
+                            color="primary"
+                            class="post-button"
+                            [disabled]="showPostButton()"
+                        >
+                            Post
+                        </button>
+                        <button
+                            type="button"
+                            mat-raised-button
+                            color="accent"
+                            class="post-button"
+                            (click)="cancelPost()"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </mat-card-header>
+            <mat-card-content></mat-card-content>
+            <mat-card-actions> </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div class="main-div">
+        <mat-card class="user-profile-card">
+            <mat-card-header>
+                <mat-card-subtitle>Posts</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngFor="let post of posts" class="post-list-post">
+                    <div>{{ post.body }}</div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
