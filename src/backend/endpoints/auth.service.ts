@@ -30,10 +30,6 @@ export class AuthService {
         return this.http.post(this.baseUrl + 'confirmregisteremail', params);
     }
 
-    // login(userToLogin: UserToLogin) {
-    //     return this.http.post(this.baseUrl + 'login', userToLogin);
-    // }
-
     login(userToLogin: UserToLogin) {
         return this.http.post(this.baseUrl + 'login', userToLogin).pipe(
             map((response: any) => {
