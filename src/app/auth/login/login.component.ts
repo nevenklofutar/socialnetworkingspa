@@ -8,6 +8,7 @@ import {
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 import { UserToLogin } from 'src/backend/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
-        private alertifyService: AlertifyService
+        private alertifyService: AlertifyService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.userToLogin).subscribe(
             (data) => {
                 this.alertifyService.success('logged in');
+                this.router.navigate(['/user/main']);
             },
             (error) => {
                 this.alertifyService.error('error logging in');
