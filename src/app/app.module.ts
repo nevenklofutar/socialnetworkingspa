@@ -25,10 +25,15 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                allowedDomains: ['localhost:5000', 'localhost:5001'],
+                allowedDomains: [
+                    'localhost:5000',
+                    'localhost:5001',
+                    'https://neven-sn.azurewebsites.net',
+                ],
                 disallowedRoutes: [
                     'localhost:5000/api/authorization',
                     'localhost:5001/api/authorization',
+                    'https://neven-sn.azurewebsites.net/api/authorization',
                 ],
             },
         }),
