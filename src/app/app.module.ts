@@ -28,12 +28,12 @@ export function tokenGetter() {
                 allowedDomains: [
                     'localhost:5000',
                     'localhost:5001',
-                    'https://neven-sn.azurewebsites.net',
+                    'neven-sn.azurewebsites.net',
                 ],
                 disallowedRoutes: [
                     'localhost:5000/api/authorization',
                     'localhost:5001/api/authorization',
-                    'https://neven-sn.azurewebsites.net/api/authorization',
+                    'neven-sn.azurewebsites.net/api/authorization',
                 ],
             },
         }),
