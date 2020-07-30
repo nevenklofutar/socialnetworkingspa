@@ -37,7 +37,8 @@
                             mat-raised-button
                             color="primary"
                             class="post-button"
-                            [disabled]="showPostButton()"
+                            [disabled]="showPostButton() || processingForm"
+                            [class.spinner]="processingForm"
                         >
                             Post
                         </button>

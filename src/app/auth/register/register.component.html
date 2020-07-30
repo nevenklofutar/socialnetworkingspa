@@ -176,9 +176,10 @@
             <mat-card-actions>
                 <button
                     type="submit"
-                    [disabled]="!registrationForm.valid"
+                    [disabled]="!registrationForm.valid || processingForm"
                     mat-raised-button
                     color="primary"
+                    [class.spinner]="processingForm"
                 >
                     Register
                 </button>

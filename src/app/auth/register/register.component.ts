@@ -17,6 +17,7 @@ import { AlertifyService } from '../../shared/_services/alertify.service';
 export class RegisterComponent implements OnInit {
     public registrationForm: FormGroup;
     private userToCreate: UserToRegister;
+    processingForm = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,6 +38,7 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
+        this.processingForm = true;
         this.userToCreate = new UserToRegister();
         this.userToCreate.email = this.registrationForm.controls.email.value;
         this.userToCreate.firstName = this.registrationForm.controls.firstName.value;
@@ -46,33 +48,30 @@ export class RegisterComponent implements OnInit {
         this.userToCreate.password = this.registrationForm.controls.password.value;
         this.userToCreate.roles = ['User'];
 
-        this.authService.register(this.userToCreate).subscribe(
-            (data) => {
-                this.alertifyService.success(
-                    'Registered successfully, check your email.'
-                );
-                this.registrationForm.disable();
-            },
-            (error) => {
-                let errors: string = ''; //error.error.title;
+        this.authService
+            .register(this.userToCreate)
+            .subscribe(
+                (data) => {
+                    this.alertifyService.success(
+                        'Registered successfully, check your email.'
+                    );
+                    this.registrationForm.disable();
+                },
+                (error) => {
+                    let errors: string = ''; //error.error.title;
 
-                Object.keys(error.error.errors).forEach((element) => {
-                    errors = errors + '<br/>' + error.error.errors[element][0];
-                });
+                    Object.keys(error.error.errors).forEach((element) => {
+                        errors =
+                            errors + '<br/>' + error.error.errors[element][0];
+                    });
 
-                this.alertifyService.error(errors);
-            }
-        );
+                    this.alertifyService.error(errors);
+                }
+            )
+            .add(() => {
+                this.processingForm = false;
+            });
     }
-
-    // test() {
-    //     this.registrationForm
-    //         .get('email')
-    //         .patchValue('neven.klofutar@gmail.com');
-    //     this.registrationForm.get('username').patchValue('neven');
-    //     this.registrationForm.get('password').patchValue('password');
-    //     this.registrationForm.get('passwordConfirm').patchValue('password');
-    // }
 
     buildForm() {
         this.registrationForm = this.formBuilder.group({

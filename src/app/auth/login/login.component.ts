@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
     private userToLogin: UserToLogin = { username: '', password: '' };
+    processingForm = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -38,17 +39,23 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
+        this.processingForm = true;
         this.userToLogin.username = this.loginForm.controls.username.value;
         this.userToLogin.password = this.loginForm.controls.password.value;
 
-        this.authService.login(this.userToLogin).subscribe(
-            (data) => {
-                this.alertifyService.success('logged in');
-                this.router.navigate(['/user/main']);
-            },
-            (error) => {
-                this.alertifyService.error('error logging in');
-            }
-        );
+        this.authService
+            .login(this.userToLogin)
+            .subscribe(
+                (data) => {
+                    this.alertifyService.success('logged in');
+                    this.router.navigate(['/user/main']);
+                },
+                (error) => {
+                    this.alertifyService.error('error logging in');
+                }
+            )
+            .add(() => {
+                this.processingForm = false;
+            });
     }
 }

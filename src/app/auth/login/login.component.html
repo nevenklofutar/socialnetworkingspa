@@ -62,9 +62,10 @@
             <mat-card-actions>
                 <button
                     type="submit"
-                    [disabled]="!loginForm.valid"
+                    [disabled]="!loginForm.valid || processingForm"
                     mat-raised-button
                     color="primary"
+                    [class.spinner]="processingForm"
                 >
                     Login
                 </button>

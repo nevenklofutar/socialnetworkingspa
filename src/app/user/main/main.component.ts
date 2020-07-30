@@ -15,6 +15,7 @@ export class MainComponent implements OnInit {
     posts: Post[];
     public newPostForm: FormGroup;
     showPostButtons: boolean = false;
+    processingForm = false;
 
     constructor(
         public postService: PostService,
@@ -45,6 +46,7 @@ export class MainComponent implements OnInit {
     }
 
     onSubmit() {
+        this.processingForm = true;
         let postBody = this.newPostForm.get('newpost').value;
         if (!postBody || postBody.length == 0) return;
 
@@ -55,18 +57,22 @@ export class MainComponent implements OnInit {
             createdById: this.currentUser.id,
         };
 
-        console.log(postToCreate);
-        this.postService.createPost(postToCreate).subscribe(
-            (result) => {
-                this.getPosts();
-                this.showPostButtons = false;
-                this.newPostForm.get('newpost').patchValue('');
-            },
-            (error) => {
-                this.alertifyService.error('error creating post');
-                console.log(error);
-            }
-        );
+        this.postService
+            .createPost(postToCreate)
+            .subscribe(
+                (result) => {
+                    this.getPosts();
+                    this.showPostButtons = false;
+                    this.newPostForm.get('newpost').patchValue('');
+                },
+                (error) => {
+                    this.alertifyService.error('error creating post');
+                    console.log(error);
+                }
+            )
+            .add(() => {
+                this.processingForm = false;
+            });
     }
 
     getPosts() {
