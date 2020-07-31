@@ -11,6 +11,7 @@ import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 })
 export class RegisterConfirmComponent implements OnInit {
     registerConfirmParams: RegisterConfirmParams = { email: '', token: '' };
+    registrationSuccess = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -20,22 +21,39 @@ export class RegisterConfirmComponent implements OnInit {
     ) {
         this.route.queryParams.subscribe((params) => {
             this.registerConfirmParams.email = params['email'];
-            this.registerConfirmParams.token = params['token'];
+            this.registerConfirmParams.token = decodeURIComponent(
+                params['token']
+            );
+            console.log(this.registerConfirmParams.token);
         });
     }
 
     ngOnInit() {
-        console.log('init');
+        this.logout();
         this.authService.registerConfirm(this.registerConfirmParams).subscribe(
             () => {
-                this.alertifyService.success(
-                    'Confirmed you email, go to login.'
-                );
-                this.router.navigate(['/auth/login']);
+                // TODO: check for multiple confirm registration attempt on backend
+                // TODO: backend is returning success for any token ????
+                //this.registrationSuccess = true;
+                console.log('success register confirm');
             },
             (error) => {
                 this.alertifyService.error(error.error.title);
+                console.log('error register confirm');
+                console.log(error.error);
             }
         );
+    }
+
+    buttonClick() {
+        this.redirectToLogin();
+    }
+
+    logout() {
+        this.authService.logout();
+    }
+
+    redirectToLogin() {
+        //this.router.navigate(['/auth/login']);
     }
 }

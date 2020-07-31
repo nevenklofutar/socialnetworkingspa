@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +8,7 @@ import { MaterialModule } from '../material/material.module';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ForgotpasswordresetComponent } from './forgotpasswordreset/forgotpasswordreset.component';
 
@@ -14,10 +16,12 @@ import { ForgotpasswordresetComponent } from './forgotpasswordreset/forgotpasswo
     declarations: [
         LoginComponent,
         RegisterComponent,
+        RegisterConfirmComponent,
         ForgotpasswordComponent,
         ForgotpasswordresetComponent,
     ],
     imports: [
+        CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
         AuthRoutingModule,
