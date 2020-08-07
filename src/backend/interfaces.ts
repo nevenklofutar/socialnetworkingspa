@@ -29,6 +29,10 @@ export interface User {
     id: string;
 }
 
+export interface SearchUsersParams {
+    searchTerm: string;
+}
+
 export interface Post {
     id: number;
     title: string;
