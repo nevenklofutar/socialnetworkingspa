@@ -1,0 +1,13 @@
+<!-- EXTEND gives us access to built in toggle method -->
+<button mat-raised-button color="primary" (click)="toggle()">
+    Toggle Catcordion
+</button>
+
+<div class="panel">
+    <!-- use animation and state check from expansion panel -->
+    <img
+        [class.name]="expandedChange"
+        [@bodyExpansion]="getExpandedState()"
+        src="https://media.giphy.com/media/iuHaJ0D7macZq/giphy.gif"
+    />
+</div>

@@ -4,6 +4,7 @@ import { ExpansionPanelComponent } from './expansion-panel/expansion-panel.compo
 
 import { ToolbarComponent } from './toolbar/toolbarcomponent';
 import { FlexLayoutComponent } from './flex-layout/flex-layout.component';
+import { AccordioncdkComponent } from './accordioncdk/accordioncdk.component';
 
 export const routes: Routes = [
     {
@@ -12,6 +13,7 @@ export const routes: Routes = [
             { path: 'toolbar', component: ToolbarComponent },
             { path: 'flexlayout', component: FlexLayoutComponent },
             { path: 'expansionpanel', component: ExpansionPanelComponent },
+            { path: 'accordion', component: AccordioncdkComponent },
         ],
     },
 ];
