@@ -1,46 +1,39 @@
-<!-- Classes main-div and example-card are catagorized in .css file -->
-
-<div class="cardList" fxLayout="column" fxLayoutGap="5px">
-    <div class="main-div">
-        <mat-card class="user-profile-card">
-            <mat-card-header>
-                <mat-card-title>Search</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <form
-                    [formGroup]="searchForm"
-                    (ngSubmit)="onSubmit()"
-                    style="width: 100%;"
-                >
-                    <div name="newPostDiv">
-                        <mat-form-field
-                            appearance="outline"
-                            color="primary"
-                            class="example-card"
-                            style="width: 100%;"
-                        >
-                            <!-- <mat-label>Write something...</mat-label> -->
-                            <input
-                                matInput
-                                formControlName="searchField"
-                                maxlength="255"
-                            />
-                        </mat-form-field>
-                        <button
-                            type="submit"
-                            mat-raised-button
-                            color="primary"
-                            class="submit-button"
-                            [disabled]="processingForm"
-                            [class.spinner]="processingForm"
-                        >
-                            Search
-                        </button>
-                    </div>
-                </form>
-            </mat-card-content>
-            <mat-card-actions> </mat-card-actions>
-        </mat-card>
+<div fxLayout="column" fxLayoutAlign=" center">
+    <div class="main-content">
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Search users</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field
+                        appearance="outline"
+                        color="primary"
+                        style="width: 100%;"
+                    >
+                        <input
+                            matInput
+                            formControlName="searchField"
+                            maxlength="255"
+                        />
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <!-- <button md-button>ACTION 1</button> -->
+                    <div fxFlex></div>
+                    <button
+                        type="submit"
+                        [disabled]="processingForm"
+                        mat-raised-button
+                        color="primary"
+                        [class.spinner]="processingForm"
+                    >
+                        Search
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
     </div>
+    <br />
+    <app-search-list [users]="users"></app-search-list>
 </div>
-<app-search-list [users]="users"></app-search-list>
