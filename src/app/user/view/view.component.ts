@@ -4,6 +4,7 @@ import { User, Post } from 'src/backend/interfaces';
 import { UserService } from 'src/backend/endpoints/user.service';
 import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 import { PostService } from 'src/backend/endpoints/post.service';
+import { LikeService } from 'src/backend/endpoints/like.service';
 
 @Component({
     selector: 'app-view',
@@ -23,7 +24,6 @@ export class ViewComponent implements OnInit {
     ) {
         this.route.queryParams.subscribe((params) => {
             this.userId = params['id'];
-            // console.log(id);
         });
     }
 
@@ -31,7 +31,6 @@ export class ViewComponent implements OnInit {
         this.userService.getUserById(this.userId).subscribe(
             (response) => {
                 this.user = response;
-                console.log(this.user);
             },
             (error) => {
                 this.alertifyService.error(error.error.title);

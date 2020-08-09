@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from '../shared/shared.module';
 
 import { UserRoutingModule } from './user-routing.module';
 import { MainComponent } from './main/main.component';
@@ -28,6 +29,7 @@ import { ViewComponent } from './view/view.component';
         ReactiveFormsModule,
         MaterialModule,
         FlexLayoutModule,
+        SharedModule,
     ],
 })
 export class UserModule {}
