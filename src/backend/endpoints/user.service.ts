@@ -11,6 +11,10 @@ export class UserService {
 
     constructor(private http: HttpClient) {}
 
+    getUserById(userId: string) {
+        return this.http.get<User>(this.baseUrl + '/' + userId);
+    }
+
     searchUsers(searchUsersParams: SearchUsersParams) {
         return this.http.post<User[]>(
             this.baseUrl + '/search',
