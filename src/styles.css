@@ -15,6 +15,10 @@ body {
     width: 600px;
 }
 
+.mat-card {
+    margin-bottom: 7px;
+}
+
 /* START organize this */
 .main-div {
     height: 100vh;
