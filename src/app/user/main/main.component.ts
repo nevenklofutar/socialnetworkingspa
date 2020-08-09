@@ -76,13 +76,12 @@ export class MainComponent implements OnInit {
     }
 
     getPosts() {
-        this.postService.getPosts().subscribe(
-            (result) => {
-                this.posts = result;
+        this.postService.getPostsForUser(this.currentUser.id).subscribe(
+            (response) => {
+                this.posts = response;
             },
             (error) => {
-                this.alertifyService.error('error getting posts');
-                console.log(error);
+                this.alertifyService.error(error.error.title);
             }
         );
     }
