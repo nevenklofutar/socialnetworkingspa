@@ -9,6 +9,12 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+/* flex layout */
+.main-content {
+    width: 600px;
+}
+
+/* START organize this */
 .main-div {
     height: 100vh;
     display: flex;
@@ -29,4 +35,33 @@ body {
     margin-top: 10px;
     border-radius: 5px;
     padding: 5px;
+}
+/* END organize this */
+
+/* spinner on a button while processing */
+.spinner-submit-button {
+    margin-left: 5px;
+    float: right;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner 0.8s linear infinite;
 }
