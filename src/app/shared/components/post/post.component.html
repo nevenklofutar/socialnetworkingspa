@@ -1,0 +1,19 @@
+<mat-card class="mat-card">
+    <mat-card-content>
+        <div>
+            <div>{{ post.body }}</div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent">Comment</button>
+        <button
+            type="button"
+            mat-raised-button
+            color="accent"
+            (click)="toggleLike(post.id)"
+        >
+            Like
+        </button>
+        Likes: {{ this.likesCount }}
+    </mat-card-actions>
+</mat-card>
