@@ -15,7 +15,9 @@ export class PostService {
         return this.http.post(this.baseUrl, post);
     }
 
-    getPosts() {
-        return this.http.get<Post[]>(this.baseUrl);
+    getPostsForUser(userId: string) {
+        return this.http.post<Post[]>(this.baseUrl + '/user', {
+            createdByUserId: userId,
+        });
     }
 }
