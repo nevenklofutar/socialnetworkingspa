@@ -1,4 +1,18 @@
-<p>
-    search-list works!
-</p>
-<div *ngFor="let user of users">{{ user.firstName }}</div>
+<div class="main-content">
+    <div></div>
+
+    <mat-card *ngFor="let user of users">
+        <mat-card-content>
+            <div>
+                {{ user.firstName }} {{ user.lastName }}
+                <div fxFlex></div>
+                <a
+                    mat-raised-button
+                    color="accent"
+                    href="/user/view?id={{ user.id }}"
+                    >View</a
+                >
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
