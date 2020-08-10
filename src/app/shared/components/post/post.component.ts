@@ -18,6 +18,7 @@ import { AlertifyService } from '../../_services/alertify.service';
 export class PostComponent implements OnInit {
     @Input() post: Post;
     likesCount: number = 0;
+    processingLike = false;
 
     constructor(
         private likeService: LikeService,
@@ -34,14 +35,21 @@ export class PostComponent implements OnInit {
     }
 
     toggleLike(postId: number) {
-        this.likeService.likePost(postId).subscribe(
-            () => {
-                this.refreshLikesCount();
-            },
-            (error) => {
-                this.alertifyService.error(error.error.title);
-            }
-        );
+        this.processingLike = true;
+
+        this.likeService
+            .likePost(postId)
+            .subscribe(
+                () => {
+                    this.refreshLikesCount();
+                },
+                (error) => {
+                    this.alertifyService.error(error.error.title);
+                }
+            )
+            .add(() => {
+                this.processingLike = false;
+            });
     }
 
     getLikesCountForPost(postId: number) {
