@@ -9,13 +9,15 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TestModule } from './_test/test.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../app/material/material.module';
+import { NavToolbarComponent } from '../app/shared/components/nav-toolbar/nav-toolbar.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
 }
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, NavToolbarComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -24,6 +26,7 @@ export function tokenGetter() {
         BrowserAnimationsModule,
         UserModule,
         TestModule,
+        MaterialModule,
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,

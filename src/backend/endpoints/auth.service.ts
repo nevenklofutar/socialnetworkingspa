@@ -17,8 +17,8 @@ export class AuthService {
     baseUrl = environment.apiUrl + 'authentication/';
     jwtHelper = new JwtHelperService();
 
-    private decodedToken: any;
-    private currentUser: User;
+    private decodedToken: any = null;
+    private currentUser: User = null;
 
     constructor(private http: HttpClient) {}
 
@@ -48,9 +48,18 @@ export class AuthService {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        this.decodedToken = null;
+        this.currentUser = null;
     }
 
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));
+    }
+
+    loggedIn() {
+        return (
+            localStorage.getItem('user') !== null &&
+            localStorage.getItem('token') !== null
+        );
     }
 }

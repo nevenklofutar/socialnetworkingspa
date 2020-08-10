@@ -1,0 +1,16 @@
+<mat-toolbar color="warn" class="mat-toolbar-custom" *ngIf="loggedIn()">
+    <div>
+        <button mat-icon-button aria-label="KlofBook Home" (click)="home()">
+            <mat-icon>home</mat-icon>
+        </button>
+    </div>
+    <div style="flex: 1 1 auto;"></div>
+    <div>
+        <button mat-raised-button (click)="search()" class="mat-button-header">
+            Search
+        </button>
+        <button mat-raised-button (click)="logout()" class="mat-button-header">
+            Logout
+        </button>
+    </div>
+</mat-toolbar>

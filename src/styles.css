@@ -19,6 +19,14 @@ body {
     margin-bottom: 7px;
 }
 
+.mat-toolbar-custom {
+    margin-bottom: 5px;
+}
+
+.mat-button-header {
+    margin-left: 5px;
+}
+
 /* START organize this */
 .main-div {
     height: 100vh;

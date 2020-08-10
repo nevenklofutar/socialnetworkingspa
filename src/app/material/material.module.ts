@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 const material = [
     MatCardModule,
@@ -14,6 +16,8 @@ const material = [
     MatInputModule,
     MatGridListModule,
     MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule,
 ];
 
 @NgModule({
