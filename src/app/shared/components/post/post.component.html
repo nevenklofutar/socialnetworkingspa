@@ -9,13 +9,13 @@
         <button
             type="button"
             mat-raised-button
-            color="accent"
+            color="{{ likeButtonColor }}"
             (click)="toggleLike(post.id)"
             [disabled]="processingLike"
             [class.spinner]="processingLike"
         >
-            Like
+            {{ likeButtonName }}
         </button>
-        Likes: {{ this.likesCount }}
+        Likes: {{ this.likes?.length }}
     </mat-card-actions>
 </mat-card>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Like } from '../interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -14,8 +15,8 @@ export class LikeService {
         return this.http.post(this.baseUrl + 'posts/' + postId + '/likes', {});
     }
 
-    getLikesCountForPost(postId: number) {
-        return this.http.get<number>(
+    getLikesForPost(postId: number) {
+        return this.http.get<Like[]>(
             this.baseUrl + 'posts/' + postId + '/likes'
         );
     }

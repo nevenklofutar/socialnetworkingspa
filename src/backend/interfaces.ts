@@ -39,3 +39,9 @@ export interface Post {
     body: string;
     createdById: string;
 }
+
+export interface Like {
+    id: number;
+    likerId: string;
+    postId: number;
+}
