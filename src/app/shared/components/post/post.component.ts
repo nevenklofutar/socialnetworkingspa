@@ -9,6 +9,7 @@ import { Post, Like, User } from 'src/backend/interfaces';
 import { LikeService } from 'src/backend/endpoints/like.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { AuthService } from 'src/backend/endpoints/auth.service';
+import { PostService } from 'src/backend/endpoints/post.service';
 
 @Component({
     selector: 'app-post',
@@ -20,10 +21,12 @@ export class PostComponent implements OnInit {
     @Input() post: Post;
     likes: Like[];
     processingLike = false;
+    processingDelete = false;
     likeButtonName = 'Like';
     likeButtonColor = 'accent';
 
     constructor(
+        private postService: PostService,
         private likeService: LikeService,
         private alertifyService: AlertifyService,
         private authService: AuthService,
@@ -32,6 +35,10 @@ export class PostComponent implements OnInit {
 
     ngOnInit() {
         this.refreshLikesCount();
+    }
+
+    showDeleteButton() {
+        return this.post.createdById === this.authService.getCurrentUser().id;
     }
 
     refreshLikesCount() {
@@ -53,6 +60,24 @@ export class PostComponent implements OnInit {
             )
             .add(() => {
                 this.processingLike = false;
+            });
+    }
+
+    deletePost(postId: number) {
+        this.processingDelete = true;
+        this.postService
+            .detelePost(postId)
+            .subscribe(
+                () => {
+                    this.alertifyService.success('Post deleted.');
+                },
+                (error) => {
+                    this.alertifyService.error(error.error.title);
+                }
+            )
+            .add(() => {
+                this.processingDelete = false;
+                this.ref.detectChanges();
             });
     }
 

@@ -1,11 +1,11 @@
 <mat-card class="mat-card">
     <mat-card-content>
         <div>
-            <div>{{ post.body }}</div>
+            <div>({{ post.id }}) {{ post.body }}</div>
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="accent">Comment</button>
+        <button mat-raised-button color="primary">Comment</button>
         <button
             type="button"
             mat-raised-button
@@ -16,6 +16,19 @@
         >
             {{ likeButtonName }}
         </button>
-        Likes: {{ this.likes?.length }}
+
+        <span> Likes: {{ this.likes?.length }} </span>
+
+        <div fxFlex></div>
+
+        <button
+            mat-raised-button
+            (click)="deletePost(post.id)"
+            [hidden]="!showDeleteButton()"
+            [disabled]="processingDelete"
+            [class.spinner]="processingDelete"
+        >
+            Delete
+        </button>
     </mat-card-actions>
 </mat-card>

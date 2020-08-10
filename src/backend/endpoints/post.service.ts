@@ -20,4 +20,8 @@ export class PostService {
             createdByUserId: userId,
         });
     }
+
+    detelePost(postId: number) {
+        return this.http.delete(this.baseUrl + '/' + postId);
+    }
 }
