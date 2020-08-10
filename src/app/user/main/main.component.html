@@ -1,8 +1,8 @@
 <!-- Classes main-div and example-card are catagorized in .css file -->
 
-<div class="cardList" fxLayout="column" fxLayoutGap="5px">
-    <div class="main-div">
-        <mat-card class="user-profile-card">
+<div fxLayout="column" fxLayoutAlign=" center">
+    <div class="main-content">
+        <mat-card>
             <mat-card-header>
                 <mat-card-title>Profile</mat-card-title>
                 <mat-card-subtitle>{{
@@ -20,7 +20,7 @@
                             class="example-card"
                             style="width: 100%;"
                         >
-                            <!-- <mat-label>Write something...</mat-label> -->
+                            <mat-label>Write something...</mat-label>
                             <textarea
                                 matInput
                                 formControlName="newpost"
@@ -61,16 +61,11 @@
         </mat-card>
     </div>
 
-    <div class="main-div">
-        <mat-card class="user-profile-card">
-            <mat-card-header>
-                <mat-card-subtitle>Posts</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <div *ngFor="let post of posts" class="post-list-post">
-                    <div>{{ post.body }}</div>
-                </div>
-            </mat-card-content>
-        </mat-card>
+    <div class="main-content">
+        <span class="mat-h1">Posts</span>
+    </div>
+
+    <div class="main-content">
+        <app-post-list [posts]="posts"></app-post-list>
     </div>
 </div>
