@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { routes } from 'src/app/auth/auth-routing.module';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/backend/interfaces';
 
 @Component({
     selector: 'app-nav-toolbar',
@@ -10,8 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NavToolbarComponent implements OnInit {
     constructor(private authService: AuthService, private router: Router) {}
+    currentUser: User;
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.currentUser = this.authService.getCurrentUser();
+    }
 
     loggedIn() {
         return this.authService.loggedIn();
