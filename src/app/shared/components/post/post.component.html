@@ -24,7 +24,7 @@
         <button
             mat-raised-button
             (click)="deletePost(post.id)"
-            [hidden]="!showDeleteButton()"
+            *ngIf="showDeleteButton()"
             [disabled]="processingDelete"
             [class.spinner]="processingDelete"
         >
