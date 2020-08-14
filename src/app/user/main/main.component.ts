@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { User, Post } from 'src/backend/interfaces';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { User, Post, Likes } from 'src/backend/interfaces';
 import { PostService } from 'src/backend/endpoints/post.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { AlertifyService } from 'src/app/shared/_services/alertify.service';
+import { PostListComponent } from 'src/app/shared/components/post-list/post-list.component';
 
 @Component({
     selector: 'app-main',
@@ -11,23 +12,23 @@ import { AlertifyService } from 'src/app/shared/_services/alertify.service';
     styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
+    @ViewChild(PostListComponent)
+    private postListComponent: PostListComponent;
     currentUser: User;
-    posts: Post[];
-    public newPostForm: FormGroup;
+    newPostForm: FormGroup;
     showPostButtons: boolean = false;
     processingForm = false;
 
     constructor(
-        public postService: PostService,
         public authService: AuthService,
         private formBuilder: FormBuilder,
-        private alertifyService: AlertifyService
+        private alertifyService: AlertifyService,
+        private postService: PostService
     ) {}
 
     ngOnInit() {
         this.currentUser = this.authService.getCurrentUser();
         this.buildForm();
-        this.getPosts();
     }
 
     buildForm() {
@@ -50,39 +51,32 @@ export class MainComponent implements OnInit {
         let postBody = this.newPostForm.get('newpost').value;
         if (!postBody || postBody.length == 0) return;
 
+        let likes: Likes = {
+            currentUserLiked: false,
+            likesCount: 0,
+        };
         let postToCreate: Post = {
             id: 0,
             title: 'title',
             body: postBody,
             createdById: this.currentUser.id,
+            likes: likes,
         };
 
         this.postService
             .createPost(postToCreate)
             .subscribe(
                 (result) => {
-                    this.getPosts();
                     this.showPostButtons = false;
                     this.newPostForm.get('newpost').patchValue('');
+                    this.postListComponent.getPosts();
                 },
                 (error) => {
-                    this.alertifyService.error('error creating post');
-                    console.log(error);
+                    this.alertifyService.error(error.error.title);
                 }
             )
             .add(() => {
                 this.processingForm = false;
             });
-    }
-
-    getPosts() {
-        this.postService.getPostsForUser(this.currentUser.id).subscribe(
-            (response) => {
-                this.posts = response;
-            },
-            (error) => {
-                this.alertifyService.error(error.error.title);
-            }
-        );
     }
 }

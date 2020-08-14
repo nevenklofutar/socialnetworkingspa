@@ -21,7 +21,7 @@ export class PostService {
         });
     }
 
-    detelePost(postId: number) {
+    deletePost(postId: number) {
         return this.http.delete(this.baseUrl + '/' + postId);
     }
 }

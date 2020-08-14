@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Like } from '../interfaces';
+import { Likes } from '../interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +16,7 @@ export class LikeService {
     }
 
     getLikesForPost(postId: number) {
-        return this.http.get<Like[]>(
+        return this.http.get<Likes>(
             this.baseUrl + 'posts/' + postId + '/likes'
         );
     }

@@ -5,11 +5,9 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
-import { Post, Like, User } from 'src/backend/interfaces';
-import { LikeService } from 'src/backend/endpoints/like.service';
-import { AlertifyService } from '../../_services/alertify.service';
+import { Post } from 'src/backend/interfaces';
 import { AuthService } from 'src/backend/endpoints/auth.service';
-import { PostService } from 'src/backend/endpoints/post.service';
+import { PostEventsService } from '../../_events/post-events.service';
 
 @Component({
     selector: 'app-post',
@@ -19,97 +17,41 @@ import { PostService } from 'src/backend/endpoints/post.service';
 })
 export class PostComponent implements OnInit {
     @Input() post: Post;
-    likes: Like[];
+    @Input() disabled: boolean = false;
+
     processingLike = false;
-    processingDelete = false;
     likeButtonName = 'Like';
     likeButtonColor = 'accent';
 
     constructor(
-        private postService: PostService,
-        private likeService: LikeService,
-        private alertifyService: AlertifyService,
         private authService: AuthService,
+        private postEventsService: PostEventsService,
         private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
-        this.refreshLikesCount();
+        this.setLikeButton();
     }
 
     showDeleteButton() {
         return this.post.createdById === this.authService.getCurrentUser().id;
     }
 
-    refreshLikesCount() {
-        this.getLikesForPost(this.post.id);
-    }
+    toggleLike = (postId: number) => this.postEventsService.toggleLike(postId);
+    deletePost = (postId: number) => this.postEventsService.deletePost(postId);
 
-    toggleLike(postId: number) {
-        this.processingLike = true;
-
-        this.likeService
-            .likePost(postId)
-            .subscribe(
-                () => {
-                    this.refreshLikesCount();
-                },
-                (error) => {
-                    this.alertifyService.error(error.error.title);
-                }
-            )
-            .add(() => {
-                this.processingLike = false;
-            });
-    }
-
-    deletePost(postId: number) {
-        this.processingDelete = true;
-        this.postService
-            .detelePost(postId)
-            .subscribe(
-                () => {
-                    this.alertifyService.success('Post deleted.');
-                },
-                (error) => {
-                    this.alertifyService.error(error.error.title);
-                }
-            )
-            .add(() => {
-                this.processingDelete = false;
-                this.ref.detectChanges();
-            });
-    }
-
-    getLikesForPost(postId: number) {
-        this.likeService
-            .getLikesForPost(postId)
-            .subscribe(
-                (response) => {
-                    this.likes = response;
-                    this.ref.detectChanges();
-                },
-                (error) => {
-                    this.alertifyService.error(error.error.title);
-                }
-            )
-            .add(() => {
-                this.setLikeButton();
-            });
-    }
-
-    setLikeButton() {
-        let currentUser = this.authService.getCurrentUser();
-        let like = this.likes.find((l) => l.likerId === currentUser.id);
-
-        if (currentUser?.id === like?.likerId) {
+    public setLikeButton() {
+        if (this.post.likes.currentUserLiked === true) {
             this.likeButtonName = 'Unlike';
             this.likeButtonColor = 'warn';
         } else {
             this.likeButtonName = 'Like';
             this.likeButtonColor = 'accent';
         }
-
         this.ref.detectChanges();
+    }
+
+    public getPost() {
+        return this.post;
     }
 }

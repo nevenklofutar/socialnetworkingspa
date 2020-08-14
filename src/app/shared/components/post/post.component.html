@@ -17,7 +17,7 @@
             {{ likeButtonName }}
         </button>
 
-        <span> Likes: {{ this.likes?.length }} </span>
+        <span> Likes: {{ this.post.likes.likesCount }} </span>
 
         <div fxFlex></div>
 
@@ -25,8 +25,8 @@
             mat-raised-button
             (click)="deletePost(post.id)"
             *ngIf="showDeleteButton()"
-            [disabled]="processingDelete"
-            [class.spinner]="processingDelete"
+            [disabled]="disabled"
+            [class.spinner]="disabled"
         >
             Delete
         </button>

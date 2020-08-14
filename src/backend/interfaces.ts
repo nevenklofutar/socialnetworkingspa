@@ -38,10 +38,10 @@ export interface Post {
     title: string;
     body: string;
     createdById: string;
+    likes: Likes;
 }
 
-export interface Like {
-    id: number;
-    likerId: string;
-    postId: number;
+export interface Likes {
+    likesCount: number;
+    currentUserLiked: boolean;
 }

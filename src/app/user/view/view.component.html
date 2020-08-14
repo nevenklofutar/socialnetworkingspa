@@ -14,9 +14,11 @@
         </mat-card>
     </div>
 
-    <div class="main-content">Posts</div>
+    <div class="main-content">
+        <span class="mat-h1">Posts</span>
+    </div>
 
     <div class="main-content">
-        <app-post-list [posts]="posts"></app-post-list>
+        <app-post-list [currentUserId]="userId"></app-post-list>
     </div>
 </div>

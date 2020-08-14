@@ -4,7 +4,6 @@ import { User, Post } from 'src/backend/interfaces';
 import { UserService } from 'src/backend/endpoints/user.service';
 import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 import { PostService } from 'src/backend/endpoints/post.service';
-import { LikeService } from 'src/backend/endpoints/like.service';
 
 @Component({
     selector: 'app-view',
@@ -19,7 +18,6 @@ export class ViewComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private userService: UserService,
-        private postService: PostService,
         private alertifyService: AlertifyService
     ) {
         this.route.queryParams.subscribe((params) => {
@@ -31,15 +29,6 @@ export class ViewComponent implements OnInit {
         this.userService.getUserById(this.userId).subscribe(
             (response) => {
                 this.user = response;
-            },
-            (error) => {
-                this.alertifyService.error(error.error.title);
-            }
-        );
-
-        this.postService.getPostsForUser(this.userId).subscribe(
-            (response) => {
-                this.posts = response;
             },
             (error) => {
                 this.alertifyService.error(error.error.title);
