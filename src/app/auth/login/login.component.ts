@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-    FormControl,
-    Validators,
-    FormGroup,
-    FormBuilder,
-} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 import { UserToLogin } from 'src/backend/interfaces';
@@ -28,7 +23,13 @@ export class LoginComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.checkIsLogin();
         this.buildForm();
+    }
+
+    checkIsLogin() {
+        if (this.authService.loggedIn() === true)
+            this.router.navigate(['/user/main']);
     }
 
     buildForm() {

@@ -15,7 +15,6 @@ import { AlertifyService } from '../../_services/alertify.service';
 import { PostService } from 'src/backend/endpoints/post.service';
 import { LikeService } from 'src/backend/endpoints/like.service';
 import { PostComponent } from '../post/post.component';
-import { elementAt } from 'rxjs/operators';
 
 @Component({
     selector: 'app-post-list',
