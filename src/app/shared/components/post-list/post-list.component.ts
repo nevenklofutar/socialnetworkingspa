@@ -75,6 +75,8 @@ export class PostListComponent implements OnInit {
     }
 
     getLikesForPost(postId: number) {
+        this.updatingLikes.set(postId, true);
+
         this.likeService.getLikesForPost(postId).subscribe(
             (response) => {
                 var post = this.posts.find((p) => p.id == postId);
@@ -110,7 +112,7 @@ export class PostListComponent implements OnInit {
     }
 
     async toggleLike(postId: number) {
-        this.updatingLikes.set(postId, true);
+        this.updatingPosts.set(postId, true);
 
         try {
             const response = await this.likeService
@@ -122,7 +124,7 @@ export class PostListComponent implements OnInit {
         } catch (e) {
             this.alertifyService.error(e.error.title);
         } finally {
-            this.updatingLikes.delete(postId);
+            this.updatingPosts.delete(postId);
             this.ref.detectChanges();
         }
     }
