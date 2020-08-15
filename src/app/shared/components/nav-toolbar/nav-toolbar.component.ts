@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/backend/interfaces';
+import { AuthEventsService } from '../../_events/auth-events.service';
 
 @Component({
     selector: 'app-nav-toolbar',
@@ -9,11 +10,17 @@ import { User } from 'src/backend/interfaces';
     styleUrls: ['./nav-toolbar.component.css'],
 })
 export class NavToolbarComponent implements OnInit {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(
+        private authEventsService: AuthEventsService,
+        private authService: AuthService,
+        private router: Router
+    ) {}
     currentUser: User;
 
     ngOnInit() {
-        this.currentUser = this.authService.getCurrentUser();
+        this.authEventsService.onSetCurrentUser$.subscribe((user) => {
+            this.currentUser = user;
+        });
     }
 
     loggedIn() {

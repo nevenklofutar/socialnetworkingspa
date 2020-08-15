@@ -9,6 +9,7 @@ import {
 } from '../interfaces';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
+import { AuthEventsService } from '../../app/shared/_events/auth-events.service';
 
 @Injectable({
     providedIn: 'root',
@@ -20,7 +21,10 @@ export class AuthService {
     private decodedToken: any = null;
     private currentUser: User = null;
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private authEventsService: AuthEventsService
+    ) {}
 
     register(user: UserToRegister) {
         return this.http.post(this.baseUrl + 'register', user);
@@ -40,6 +44,7 @@ export class AuthService {
                         response.token
                     );
                     this.currentUser = response.user;
+                    this.authEventsService.setCurrentUser(this.currentUser);
                 }
             })
         );
