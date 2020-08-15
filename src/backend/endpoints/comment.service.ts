@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { CommentToAdd } from '../interfaces';
+import { CommentToAdd, Comment } from '../interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -15,6 +15,12 @@ export class CommentService {
         return this.http.post(
             this.baseUrl + '/' + comment.postId + '/comments',
             comment
+        );
+    }
+
+    getCommentsForPost(postId: number) {
+        return this.http.get<Comment[]>(
+            this.baseUrl + '/' + postId + '/comments'
         );
     }
 }

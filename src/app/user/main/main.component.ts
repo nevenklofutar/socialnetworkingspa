@@ -55,7 +55,7 @@ export class MainComponent implements OnInit {
             currentUserLiked: false,
             likesCount: 0,
         };
-        let postToCreate: Post = {
+        let postToCreate: Partial<Post> = {
             id: 0,
             title: 'title',
             body: postBody,

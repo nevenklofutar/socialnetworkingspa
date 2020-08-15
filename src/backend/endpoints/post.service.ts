@@ -11,7 +11,7 @@ export class PostService {
 
     constructor(private http: HttpClient) {}
 
-    createPost(post: Post) {
+    createPost(post: Partial<Post>) {
         return this.http.post(this.baseUrl, post);
     }
 

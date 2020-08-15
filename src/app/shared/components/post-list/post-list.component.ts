@@ -7,7 +7,7 @@ import {
     ViewChildren,
     QueryList,
 } from '@angular/core';
-import { Post, CommentToAdd } from 'src/backend/interfaces';
+import { Post, CommentToAdd, Comment } from 'src/backend/interfaces';
 import { Subscription } from 'rxjs';
 import { PostEventsService } from '../../_events/post-events.service';
 import { CommentEventsService } from '../../_events/comment-events.service';
@@ -27,7 +27,7 @@ export class PostListComponent implements OnInit {
     @ViewChildren(PostComponent) viewChildren!: QueryList<PostComponent>;
     @Input()
     currentUserId: string;
-    posts: Post[];
+    posts: Post[] = [];
 
     updatingPosts = new Map<number, boolean>();
     updatingLikes = new Map<number, boolean>();
@@ -70,8 +70,8 @@ export class PostListComponent implements OnInit {
 
     getPosts() {
         this.postService.getPostsForUser(this.currentUserId).subscribe(
-            (response) => {
-                this.posts = response;
+            (posts) => {
+                this.posts = posts;
                 this.ref.detectChanges();
             },
             (error) => {
@@ -79,6 +79,28 @@ export class PostListComponent implements OnInit {
             }
         );
     }
+
+    // getCommentsForPost(postId: number) {
+    //     this.updatingLikes.set(postId, true);
+
+    //     this.commentService.getCommentsForPost(postId).subscribe(
+    //         (response) => {
+    //             var post = this.posts.find((p) => p.id == postId);
+    //             post.comments = response;
+
+    //             // this.viewChildren.forEach((element) => {
+    //             //     if (element.getPost().id === post.id)
+    //             //         element.setLikeButton();
+    //             // });
+    //             this.ref.detectChanges();
+    //         },
+    //         (error) => {
+    //             console.log(error.error);
+    //         }
+    //     );
+
+    //     this.ref.detectChanges();
+    // }
 
     getLikesForPost(postId: number) {
         this.updatingLikes.set(postId, true);
@@ -143,8 +165,9 @@ export class PostListComponent implements OnInit {
                 .createComment(comment)
                 .toPromise();
 
+            // TODO: change this to update only post that got comment added to, not all of them
             this.getPosts();
-            // this.ref.detectChanges();
+            this.ref.detectChanges();
         } catch (e) {
             this.alertifyService.error(e.error.title);
         } finally {

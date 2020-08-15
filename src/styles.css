@@ -29,6 +29,7 @@ body {
 
 .post-content {
     font-weight: bold;
+    padding-bottom: 10px;
 }
 
 .comment-input {
@@ -40,6 +41,28 @@ body {
 .comment-input .mat-form-field-infix {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
+}
+
+.comment-view {
+    border: 1px solid lightgray;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 3px;
+}
+
+.post-comments-divider {
+    margin-bottom: 10px;
+}
+
+.comment-view-commenter-name {
+    font-weight: bold;
+    color: darkblue;
+    padding-right: 5px;
+}
+
+.comment-view-content {
+    font-weight: normal;
 }
 
 /* START organize this */

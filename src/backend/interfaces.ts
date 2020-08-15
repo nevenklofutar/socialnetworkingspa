@@ -39,11 +39,19 @@ export interface Post {
     body: string;
     createdById: string;
     likes: Likes;
+    comments: Comment[];
 }
 
 export interface Likes {
     likesCount: number;
     currentUserLiked: boolean;
+}
+
+export interface Comment {
+    id: number;
+    content: string;
+    createdOn: Date;
+    commentedByName: string;
 }
 
 export interface CommentToAdd {

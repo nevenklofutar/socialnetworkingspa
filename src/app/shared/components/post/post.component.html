@@ -4,6 +4,17 @@
             <div class="post-content">({{ post.id }}) {{ post.body }}</div>
         </div>
 
+        <div class="post-comments-divider">
+            <mat-divider></mat-divider>
+        </div>
+
+        <div *ngFor="let comment of post.comments" class="comment-view">
+            <span class="comment-view-commenter-name">{{
+                comment.commentedByName
+            }}</span>
+            <span class="comment-view-content">{{ comment.content }}</span>
+        </div>
+
         <form [formGroup]="newCommentForm" (keydown)="createComment($event)">
             <mat-form-field
                 appearance="outline"
