@@ -69,4 +69,23 @@ export class PostComponent implements OnInit {
     public getPost() {
         return this.post;
     }
+
+    createComment(event) {
+        if (event.keyCode === 13) {
+            console.log('enter add comment ' + this.post.id);
+            let commentToAdd = this.createCommentToAdd();
+            console.log(commentToAdd);
+
+            this.addComment(commentToAdd);
+        }
+    }
+
+    createCommentToAdd() {
+        let commentToAdd: CommentToAdd = {
+            postId: this.post.id,
+            CommentedById: this.authService.getCurrentUser().id,
+            content: this.newCommentForm.get('newComment').value,
+        };
+        return commentToAdd;
+    }
 }

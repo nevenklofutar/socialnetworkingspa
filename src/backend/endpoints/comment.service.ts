@@ -7,11 +7,14 @@ import { CommentToAdd } from '../interfaces';
     providedIn: 'root',
 })
 export class CommentService {
-    baseUrl = environment.apiUrl + 'comments';
+    baseUrl = environment.apiUrl + 'posts';
 
     constructor(private http: HttpClient) {}
 
     createComment(comment: CommentToAdd) {
-        return this.http.post(this.baseUrl, comment);
+        return this.http.post(
+            this.baseUrl + '/' + comment.postId + '/comments',
+            comment
+        );
     }
 }

@@ -4,7 +4,7 @@
             <div class="post-content">({{ post.id }}) {{ post.body }}</div>
         </div>
 
-        <form [formGroup]="newCommentForm" (submit)="addComment()">
+        <form [formGroup]="newCommentForm" (keydown)="createComment($event)">
             <mat-form-field
                 appearance="outline"
                 color="primary"

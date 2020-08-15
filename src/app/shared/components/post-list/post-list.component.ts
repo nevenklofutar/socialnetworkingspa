@@ -10,6 +10,7 @@ import {
 import { Post, CommentToAdd } from 'src/backend/interfaces';
 import { Subscription } from 'rxjs';
 import { PostEventsService } from '../../_events/post-events.service';
+import { CommentEventsService } from '../../_events/comment-events.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { PostService } from 'src/backend/endpoints/post.service';
 import { CommentService } from 'src/backend/endpoints/comment.service';
@@ -33,9 +34,11 @@ export class PostListComponent implements OnInit {
 
     private deleteSubscription: Subscription;
     private likeToggleSubscription: Subscription;
+    private addCommentSubscription: Subscription;
 
     constructor(
         private postEventsService: PostEventsService,
+        private commentEventsService: CommentEventsService,
         private alertifyService: AlertifyService,
         public postService: PostService,
         public likeService: LikeService,
@@ -49,6 +52,9 @@ export class PostListComponent implements OnInit {
         );
         this.likeToggleSubscription = this.postEventsService.onPostLikeToggle$.subscribe(
             (id) => this.toggleLike(id)
+        );
+        this.addCommentSubscription = this.commentEventsService.onCommentAdd$.subscribe(
+            (commentToAdd) => this.addComment(commentToAdd)
         );
         this.getPosts();
     }
@@ -137,8 +143,8 @@ export class PostListComponent implements OnInit {
                 .createComment(comment)
                 .toPromise();
 
-            // this.getLikesForPost(postId);
-            this.ref.detectChanges();
+            this.getPosts();
+            // this.ref.detectChanges();
         } catch (e) {
             this.alertifyService.error(e.error.title);
         } finally {
