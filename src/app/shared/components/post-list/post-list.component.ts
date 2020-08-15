@@ -62,6 +62,7 @@ export class PostListComponent implements OnInit {
     ngOnDestroy() {
         this.deleteSubscription.unsubscribe();
         this.likeToggleSubscription.unsubscribe();
+        this.addCommentSubscription.unsubscribe();
     }
 
     trackByPost(index, item: Post) {
