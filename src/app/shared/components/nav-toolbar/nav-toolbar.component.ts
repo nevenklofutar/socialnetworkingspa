@@ -15,9 +15,12 @@ export class NavToolbarComponent implements OnInit {
         private authService: AuthService,
         private router: Router
     ) {}
+
     currentUser: User;
 
     ngOnInit() {
+        this.currentUser = this.authService.getCurrentUser();
+
         this.authEventsService.onSetCurrentUser$.subscribe((user) => {
             this.currentUser = user;
         });

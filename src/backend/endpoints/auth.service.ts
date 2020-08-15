@@ -55,6 +55,7 @@ export class AuthService {
         localStorage.removeItem('user');
         this.decodedToken = null;
         this.currentUser = null;
+        this.authEventsService.setCurrentUser(this.currentUser);
     }
 
     getCurrentUser() {
