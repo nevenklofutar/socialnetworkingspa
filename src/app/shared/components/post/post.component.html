@@ -1,8 +1,24 @@
 <mat-card class="mat-card">
     <mat-card-content>
         <div>
-            <div>({{ post.id }}) {{ post.body }}</div>
+            <div class="post-content">({{ post.id }}) {{ post.body }}</div>
         </div>
+
+        <form [formGroup]="newCommentForm" (submit)="addComment()">
+            <mat-form-field
+                appearance="outline"
+                color="primary"
+                class="comment-input"
+            >
+                <input
+                    matInput
+                    formControlName="newComment"
+                    maxlength="255"
+                    cdkTextareaAutosize
+                    placeholder="write comment..."
+                />
+            </mat-form-field>
+        </form>
     </mat-card-content>
     <mat-card-actions>
         <button

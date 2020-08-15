@@ -45,3 +45,9 @@ export interface Likes {
     likesCount: number;
     currentUserLiked: boolean;
 }
+
+export interface CommentToAdd {
+    postId: number;
+    content: string;
+    CommentedById: string;
+}

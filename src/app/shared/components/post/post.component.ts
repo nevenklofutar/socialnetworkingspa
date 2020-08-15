@@ -5,9 +5,11 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
-import { Post } from 'src/backend/interfaces';
+import { Post, CommentToAdd } from 'src/backend/interfaces';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { PostEventsService } from '../../_events/post-events.service';
+import { CommentEventsService } from '../../_events/comment-events.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-post',
@@ -19,18 +21,29 @@ export class PostComponent implements OnInit {
     @Input() post: Post;
     @Input() disabled: boolean = false;
 
+    newCommentForm: FormGroup;
+
     processingLike = false;
     likeButtonName = 'Like';
     likeButtonColor = 'accent';
 
     constructor(
+        private formBuilder: FormBuilder,
         private authService: AuthService,
         private postEventsService: PostEventsService,
+        private commentEventsService: CommentEventsService,
         private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
+        this.buildForm();
         this.setLikeButton();
+    }
+
+    buildForm() {
+        this.newCommentForm = this.formBuilder.group({
+            newComment: [''],
+        });
     }
 
     showDeleteButton() {
@@ -39,6 +52,8 @@ export class PostComponent implements OnInit {
 
     toggleLike = (postId: number) => this.postEventsService.toggleLike(postId);
     deletePost = (postId: number) => this.postEventsService.deletePost(postId);
+    addComment = (comment: CommentToAdd) =>
+        this.commentEventsService.addComment(comment);
 
     public setLikeButton() {
         if (this.post.likes.currentUserLiked === true) {

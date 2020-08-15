@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
@@ -14,6 +15,8 @@ import { PostListComponent } from './components/post-list/post-list.component';
         BrowserAnimationsModule,
         MaterialModule,
         FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     exports: [PostListComponent],
 })

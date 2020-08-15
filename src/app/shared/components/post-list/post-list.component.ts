@@ -4,15 +4,15 @@ import {
     ChangeDetectionStrategy,
     Input,
     ChangeDetectorRef,
-    ViewChild,
     ViewChildren,
     QueryList,
 } from '@angular/core';
-import { Post } from 'src/backend/interfaces';
+import { Post, CommentToAdd } from 'src/backend/interfaces';
 import { Subscription } from 'rxjs';
 import { PostEventsService } from '../../_events/post-events.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { PostService } from 'src/backend/endpoints/post.service';
+import { CommentService } from 'src/backend/endpoints/comment.service';
 import { LikeService } from 'src/backend/endpoints/like.service';
 import { PostComponent } from '../post/post.component';
 
@@ -39,6 +39,7 @@ export class PostListComponent implements OnInit {
         private alertifyService: AlertifyService,
         public postService: PostService,
         public likeService: LikeService,
+        public commentService: CommentService,
         private ref: ChangeDetectorRef
     ) {}
 
@@ -124,6 +125,24 @@ export class PostListComponent implements OnInit {
             this.alertifyService.error(e.error.title);
         } finally {
             this.updatingPosts.delete(postId);
+            this.ref.detectChanges();
+        }
+    }
+
+    async addComment(comment: CommentToAdd) {
+        this.updatingPosts.set(comment.postId, true);
+
+        try {
+            const response = await this.commentService
+                .createComment(comment)
+                .toPromise();
+
+            // this.getLikesForPost(postId);
+            this.ref.detectChanges();
+        } catch (e) {
+            this.alertifyService.error(e.error.title);
+        } finally {
+            this.updatingPosts.delete(comment.postId);
             this.ref.detectChanges();
         }
     }
