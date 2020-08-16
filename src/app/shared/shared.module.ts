@@ -6,12 +6,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { YesNoComponent } from './dialogs/yes-no/yes-no.component';
 
 @NgModule({
-    declarations: [PostComponent, PostListComponent],
+    declarations: [PostComponent, PostListComponent, YesNoComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -21,6 +23,7 @@ import { PostListComponent } from './components/post-list/post-list.component';
         ReactiveFormsModule,
         MatDividerModule,
         MatMenuModule,
+        MatDialogModule,
     ],
     exports: [PostListComponent],
 })
