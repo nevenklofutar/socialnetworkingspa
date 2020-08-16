@@ -10,10 +10,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
-import { YesNoComponent } from './dialogs/yes-no/yes-no.component';
+import { YesNoDialogComponent } from './dialogs/yes-no-dialog/yes-no-dialog.component';
+import { EditDialogComponent } from './dialogs/edit-dialog/edit-dialog.component';
 
 @NgModule({
-    declarations: [PostComponent, PostListComponent, YesNoComponent],
+    declarations: [
+        PostComponent,
+        PostListComponent,
+        YesNoDialogComponent,
+        EditDialogComponent,
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
