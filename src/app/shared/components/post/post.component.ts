@@ -10,6 +10,8 @@ import { AuthService } from 'src/backend/endpoints/auth.service';
 import { PostEventsService } from '../../_events/post-events.service';
 import { CommentEventsService } from '../../_events/comment-events.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { YesNoComponent } from '../../../shared/dialogs/yes-no/yes-no.component';
 
 @Component({
     selector: 'app-post',
@@ -32,7 +34,8 @@ export class PostComponent implements OnInit {
         private authService: AuthService,
         private postEventsService: PostEventsService,
         private commentEventsService: CommentEventsService,
-        private ref: ChangeDetectorRef
+        private ref: ChangeDetectorRef,
+        public deletePostDialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -89,5 +92,17 @@ export class PostComponent implements OnInit {
             content: this.newCommentForm.get('newComment').value,
         };
         return commentToAdd;
+    }
+
+    openDialogDelete(postId: number) {
+        const deleteDialogRef = this.deletePostDialog.open(YesNoComponent, {
+            data: {
+                postId: postId,
+                content: 'Are you sure you want to delete this post ?',
+            },
+        });
+        deleteDialogRef.afterClosed().subscribe((result) => {
+            if (result !== false) this.deletePost(result);
+        });
     }
 }

@@ -17,7 +17,10 @@
                         <button mat-menu-item (click)="editPost(post.id)">
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item (click)="deletePost(post.id)">
+                        <button
+                            mat-menu-item
+                            (click)="openDialogDelete(post.id)"
+                        >
                             <span>Delete</span>
                         </button>
                     </mat-menu>
