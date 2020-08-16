@@ -5,6 +5,7 @@ import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
@@ -19,6 +20,7 @@ import { PostListComponent } from './components/post-list/post-list.component';
         FormsModule,
         ReactiveFormsModule,
         MatDividerModule,
+        MatMenuModule,
     ],
     exports: [PostListComponent],
 })

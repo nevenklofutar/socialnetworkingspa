@@ -1,13 +1,79 @@
 <mat-card class="mat-card">
     <mat-card-content>
-        <div>
-            <div class="post-content">({{ post.id }}) {{ post.body }}</div>
+        <div style="display: flex;">
+            <div style="width: 97%;">
+                <div class="post-content">({{ post.id }}) {{ post.body }}</div>
+            </div>
+            <div style="width: 3%;">
+                <div class="post-content">
+                    <a [matMenuTriggerFor]="menu" *ngIf="showDeleteButton()">
+                        <mat-icon
+                            class="material-icons"
+                            style="cursor: pointer;"
+                            >more_vert</mat-icon
+                        >
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editPost(post.id)">
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="deletePost(post.id)">
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
         </div>
 
         <div class="post-comments-divider">
             <mat-divider></mat-divider>
         </div>
 
+        <div
+            class="post-actions"
+            style="display: flex; text-align: center; margin-top: -9px;"
+        >
+            <div style="width: 190px; float: left;">
+                <button
+                    type="button"
+                    mat-raised-button
+                    (click)="toggleLike(post.id)"
+                    [disabled]="disabled"
+                    [class.spinner]="disabled"
+                    style="width: 190px;"
+                >
+                    {{ likeButtonName }}
+                </button>
+            </div>
+            <div
+                style="
+                    width: 190px;
+                    height: auto;
+                    text-align: center;
+                    margin: auto;
+                "
+            >
+                Likes: {{ this.post.likes.likesCount }}
+            </div>
+
+            <!-- <div style="width: 190px; float: right;">
+                <button
+                    mat-raised-button
+                    (click)="deletePost(post.id)"
+                    *ngIf="showDeleteButton()"
+                    [disabled]="disabled"
+                    [class.spinner]="disabled"
+                    style="width: 190px; align-content: end;"
+                >
+                    Delete
+                </button>
+            </div> -->
+        </div>
+
+        <div class="post-comments-divider">
+            <mat-divider></mat-divider>
+        </div>
+        Comments
         <div *ngFor="let comment of post.comments" class="comment-view">
             <span class="comment-view-commenter-name">{{
                 comment.commentedByName
@@ -31,30 +97,4 @@
             </mat-form-field>
         </form>
     </mat-card-content>
-    <mat-card-actions>
-        <button
-            type="button"
-            mat-raised-button
-            color="{{ likeButtonColor }}"
-            (click)="toggleLike(post.id)"
-            [disabled]="disabled"
-            [class.spinner]="disabled"
-        >
-            {{ likeButtonName }}
-        </button>
-
-        <span> Likes: {{ this.post.likes.likesCount }} </span>
-
-        <div fxFlex></div>
-
-        <button
-            mat-raised-button
-            (click)="deletePost(post.id)"
-            *ngIf="showDeleteButton()"
-            [disabled]="disabled"
-            [class.spinner]="disabled"
-        >
-            Delete
-        </button>
-    </mat-card-actions>
 </mat-card>

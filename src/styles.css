@@ -65,6 +65,10 @@ body {
     font-weight: normal;
 }
 
+.post-actions {
+    height: auto;
+}
+
 /* START organize this */
 .main-div {
     height: 100vh;

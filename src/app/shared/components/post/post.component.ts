@@ -55,6 +55,10 @@ export class PostComponent implements OnInit {
     addComment = (comment: CommentToAdd) =>
         this.commentEventsService.addComment(comment);
 
+    editPost(postId: number) {
+        alert('under contruction ' + this.post.id);
+    }
+
     public setLikeButton() {
         if (this.post.likes.currentUserLiked === true) {
             this.likeButtonName = 'Unlike';

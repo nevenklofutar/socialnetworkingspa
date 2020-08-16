@@ -1,0 +1,10 @@
+::ng-deep .mat-icon {
+    height: 18px !important;
+    width: 18px !important;
+    font-size: 18px !important;
+}
+
+::ng-deep .mat-menu-item {
+    line-height: 36px !important;
+    height: 36px !important;
+}
