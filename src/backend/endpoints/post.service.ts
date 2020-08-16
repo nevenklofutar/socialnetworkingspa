@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Post } from '../interfaces';
+import { Post, PostForUpdate } from '../interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +23,9 @@ export class PostService {
 
     deletePost(postId: number) {
         return this.http.delete(this.baseUrl + '/' + postId);
+    }
+
+    updatePost(post: PostForUpdate) {
+        return this.http.put(this.baseUrl + '/' + post.id, post);
     }
 }

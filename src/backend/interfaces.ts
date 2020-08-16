@@ -42,6 +42,12 @@ export interface Post {
     comments: Comment[];
 }
 
+export interface PostForUpdate {
+    id: number;
+    title: string;
+    body: string;
+}
+
 export interface Likes {
     likesCount: number;
     currentUserLiked: boolean;

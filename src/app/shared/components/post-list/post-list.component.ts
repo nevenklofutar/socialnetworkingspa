@@ -7,7 +7,12 @@ import {
     ViewChildren,
     QueryList,
 } from '@angular/core';
-import { Post, CommentToAdd, Comment } from 'src/backend/interfaces';
+import {
+    Post,
+    CommentToAdd,
+    Comment,
+    PostForUpdate,
+} from 'src/backend/interfaces';
 import { Subscription } from 'rxjs';
 import { PostEventsService } from '../../_events/post-events.service';
 import { CommentEventsService } from '../../_events/comment-events.service';
@@ -33,6 +38,7 @@ export class PostListComponent implements OnInit {
     updatingLikes = new Map<number, boolean>();
 
     private deleteSubscription: Subscription;
+    private updateSubscription: Subscription;
     private likeToggleSubscription: Subscription;
     private addCommentSubscription: Subscription;
 
@@ -56,6 +62,9 @@ export class PostListComponent implements OnInit {
         this.addCommentSubscription = this.commentEventsService.onCommentAdd$.subscribe(
             (commentToAdd) => this.addComment(commentToAdd)
         );
+        this.updateSubscription = this.postEventsService.onPostUpdate$.subscribe(
+            (postForUpdate) => this.updatePost(postForUpdate)
+        );
         this.getPosts();
     }
 
@@ -63,6 +72,7 @@ export class PostListComponent implements OnInit {
         this.deleteSubscription.unsubscribe();
         this.likeToggleSubscription.unsubscribe();
         this.addCommentSubscription.unsubscribe();
+        this.updateSubscription.unsubscribe();
     }
 
     trackByPost(index, item: Post) {
@@ -80,28 +90,6 @@ export class PostListComponent implements OnInit {
             }
         );
     }
-
-    // getCommentsForPost(postId: number) {
-    //     this.updatingLikes.set(postId, true);
-
-    //     this.commentService.getCommentsForPost(postId).subscribe(
-    //         (response) => {
-    //             var post = this.posts.find((p) => p.id == postId);
-    //             post.comments = response;
-
-    //             // this.viewChildren.forEach((element) => {
-    //             //     if (element.getPost().id === post.id)
-    //             //         element.setLikeButton();
-    //             // });
-    //             this.ref.detectChanges();
-    //         },
-    //         (error) => {
-    //             console.log(error.error);
-    //         }
-    //     );
-
-    //     this.ref.detectChanges();
-    // }
 
     getLikesForPost(postId: number) {
         this.updatingLikes.set(postId, true);
@@ -173,6 +161,24 @@ export class PostListComponent implements OnInit {
             this.alertifyService.error(e.error.title);
         } finally {
             this.updatingPosts.delete(comment.postId);
+            this.ref.detectChanges();
+        }
+    }
+
+    async updatePost(post: PostForUpdate) {
+        this.updatingPosts.set(post.id, true);
+
+        try {
+            const response = await this.postService
+                .updatePost(post)
+                .toPromise();
+
+            this.getPosts();
+            this.ref.detectChanges();
+        } catch (e) {
+            this.alertifyService.error(e.error.title);
+        } finally {
+            this.updatingPosts.delete(post.id);
             this.ref.detectChanges();
         }
     }

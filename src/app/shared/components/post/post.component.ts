@@ -5,13 +5,14 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
-import { Post, CommentToAdd } from 'src/backend/interfaces';
+import { Post, CommentToAdd, PostForUpdate } from 'src/backend/interfaces';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { PostEventsService } from '../../_events/post-events.service';
 import { CommentEventsService } from '../../_events/comment-events.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { YesNoComponent } from '../../../shared/dialogs/yes-no/yes-no.component';
+import { YesNoDialogComponent } from '../../dialogs/yes-no-dialog/yes-no-dialog.component';
+import { EditDialogComponent } from '../../dialogs/edit-dialog/edit-dialog.component';
 
 @Component({
     selector: 'app-post',
@@ -35,7 +36,8 @@ export class PostComponent implements OnInit {
         private postEventsService: PostEventsService,
         private commentEventsService: CommentEventsService,
         private ref: ChangeDetectorRef,
-        public deletePostDialog: MatDialog
+        public deletePostDialog: MatDialog,
+        public editPostDialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -57,10 +59,8 @@ export class PostComponent implements OnInit {
     deletePost = (postId: number) => this.postEventsService.deletePost(postId);
     addComment = (comment: CommentToAdd) =>
         this.commentEventsService.addComment(comment);
-
-    editPost(postId: number) {
-        alert('under contruction ' + this.post.id);
-    }
+    updatePost = (post: PostForUpdate) =>
+        this.postEventsService.updatePost(post);
 
     public setLikeButton() {
         if (this.post.likes.currentUserLiked === true) {
@@ -95,14 +95,39 @@ export class PostComponent implements OnInit {
     }
 
     openDialogDelete(postId: number) {
-        const deleteDialogRef = this.deletePostDialog.open(YesNoComponent, {
-            data: {
-                postId: postId,
-                content: 'Are you sure you want to delete this post ?',
-            },
-        });
+        const deleteDialogRef = this.deletePostDialog.open(
+            YesNoDialogComponent,
+            {
+                data: {
+                    postId: postId,
+                    content: 'Are you sure you want to delete this post ?',
+                },
+            }
+        );
         deleteDialogRef.afterClosed().subscribe((result) => {
             if (result !== false) this.deletePost(result);
+        });
+    }
+
+    openDialogEdit(post: Post) {
+        const editDialogRef = this.editPostDialog.open(EditDialogComponent, {
+            maxWidth: '75vw',
+            width: '75vw',
+
+            data: {
+                id: post.id,
+                value: post.body,
+                title: 'Post',
+            },
+        });
+        editDialogRef.afterClosed().subscribe((result) => {
+            let postForUpdate: PostForUpdate = {
+                id: result.id,
+                title: '',
+                body: result.value,
+            };
+
+            if (result !== null) this.updatePost(postForUpdate);
         });
     }
 }

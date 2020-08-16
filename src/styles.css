@@ -38,6 +38,10 @@ body {
     margin-top: 10px;
 }
 
+.comment-input-dialog {
+    width: 100%;
+}
+
 .comment-input .mat-form-field-infix {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
