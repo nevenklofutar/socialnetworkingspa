@@ -150,9 +150,6 @@ export class PostComponent implements OnInit {
     }
 
     openCommentDialogEdit(comment: Comment) {
-        console.log('openCommentDialogEdit');
-        console.log(comment);
-
         const editDialogRef = this.editDialog.open(EditDialogComponent, {
             maxWidth: '75vw',
             width: '75vw',
@@ -164,9 +161,6 @@ export class PostComponent implements OnInit {
             },
         });
         editDialogRef.afterClosed().subscribe((result) => {
-            console.log('openCommentDialogEdit result');
-            console.log(result);
-
             if (result !== null && result !== undefined) {
                 let commentForUpdate: CommentForUpdate = {
                     postId: this.post.id,
@@ -179,9 +173,6 @@ export class PostComponent implements OnInit {
     }
 
     openCommentDialogDelete(commentToDelete: CommentForDelete) {
-        console.log('openCommentDialogDelete 1');
-        console.log(commentToDelete);
-
         const deleteDialogRef = this.deleteDialog.open(YesNoDialogComponent, {
             data: {
                 id: commentToDelete,
@@ -190,9 +181,6 @@ export class PostComponent implements OnInit {
         });
 
         deleteDialogRef.afterClosed().subscribe((result) => {
-            console.log('openCommentDialogDelete 2');
-            console.log(result);
-
             if (result !== null && result !== undefined && result !== false)
                 this.deleteComment(result);
         });
