@@ -58,10 +58,22 @@ export interface Comment {
     content: string;
     createdOn: Date;
     commentedByName: string;
+    commentedById: string;
 }
 
 export interface CommentToAdd {
     postId: number;
     content: string;
     CommentedById: string;
+}
+
+export interface CommentForUpdate {
+    postId: number;
+    content: string;
+    id: number;
+}
+
+export interface CommentForDelete {
+    postId: number;
+    commentId: number;
 }

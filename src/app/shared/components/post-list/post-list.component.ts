@@ -12,6 +12,8 @@ import {
     CommentToAdd,
     Comment,
     PostForUpdate,
+    CommentForUpdate,
+    CommentForDelete,
 } from 'src/backend/interfaces';
 import { Subscription } from 'rxjs';
 import { PostEventsService } from '../../_events/post-events.service';
@@ -41,6 +43,8 @@ export class PostListComponent implements OnInit {
     private updateSubscription: Subscription;
     private likeToggleSubscription: Subscription;
     private addCommentSubscription: Subscription;
+    private updateCommentSubscription: Subscription;
+    private deleteCommentSubscription: Subscription;
 
     constructor(
         private postEventsService: PostEventsService,
@@ -56,14 +60,20 @@ export class PostListComponent implements OnInit {
         this.deleteSubscription = this.postEventsService.onPostDelete$.subscribe(
             (id) => this.deletePost(id)
         );
+        this.updateSubscription = this.postEventsService.onPostUpdate$.subscribe(
+            (postForUpdate) => this.updatePost(postForUpdate)
+        );
         this.likeToggleSubscription = this.postEventsService.onPostLikeToggle$.subscribe(
             (id) => this.toggleLike(id)
         );
         this.addCommentSubscription = this.commentEventsService.onCommentAdd$.subscribe(
             (commentToAdd) => this.addComment(commentToAdd)
         );
-        this.updateSubscription = this.postEventsService.onPostUpdate$.subscribe(
-            (postForUpdate) => this.updatePost(postForUpdate)
+        this.updateCommentSubscription = this.commentEventsService.onCommentUpdate$.subscribe(
+            (commentForUpdate) => this.updateComment(commentForUpdate)
+        );
+        this.deleteCommentSubscription = this.commentEventsService.onCommentDelete$.subscribe(
+            (commentForDelete) => this.deleteComment(commentForDelete)
         );
         this.getPosts();
     }
@@ -73,6 +83,8 @@ export class PostListComponent implements OnInit {
         this.likeToggleSubscription.unsubscribe();
         this.addCommentSubscription.unsubscribe();
         this.updateSubscription.unsubscribe();
+        this.updateCommentSubscription.unsubscribe;
+        this.deleteCommentSubscription.unsubscribe;
     }
 
     trackByPost(index, item: Post) {
@@ -128,6 +140,24 @@ export class PostListComponent implements OnInit {
         }
     }
 
+    async updatePost(post: PostForUpdate) {
+        this.updatingPosts.set(post.id, true);
+
+        try {
+            const response = await this.postService
+                .updatePost(post)
+                .toPromise();
+
+            this.getPosts();
+            this.ref.detectChanges();
+        } catch (e) {
+            this.alertifyService.error(e.error.title);
+        } finally {
+            this.updatingPosts.delete(post.id);
+            this.ref.detectChanges();
+        }
+    }
+
     async toggleLike(postId: number) {
         this.updatingPosts.set(postId, true);
 
@@ -165,20 +195,40 @@ export class PostListComponent implements OnInit {
         }
     }
 
-    async updatePost(post: PostForUpdate) {
-        this.updatingPosts.set(post.id, true);
+    async updateComment(comment: CommentForUpdate) {
+        // this.updatingPosts.set(comment.postId, true);
 
         try {
-            const response = await this.postService
-                .updatePost(post)
+            const response = await this.commentService
+                .updateComment(comment)
                 .toPromise();
 
+            // TODO: change this to update only post that got comment added to, not all of them
             this.getPosts();
             this.ref.detectChanges();
         } catch (e) {
             this.alertifyService.error(e.error.title);
         } finally {
-            this.updatingPosts.delete(post.id);
+            // this.updatingPosts.delete(comment.postId);
+            this.ref.detectChanges();
+        }
+    }
+
+    async deleteComment(comment: CommentForDelete) {
+        // this.updatingPosts.set(comment.postId, true);
+
+        try {
+            const response = await this.commentService
+                .deleteComment(comment.postId, comment.commentId)
+                .toPromise();
+
+            // TODO: change this to update only post that got comment added to, not all of them
+            this.getPosts();
+            this.ref.detectChanges();
+        } catch (e) {
+            this.alertifyService.error(e.error.title);
+        } finally {
+            // this.updatingPosts.delete(comment.postId);
             this.ref.detectChanges();
         }
     }

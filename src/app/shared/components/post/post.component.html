@@ -14,12 +14,15 @@
                         >
                     </a>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="openDialogEdit(post)">
+                        <button
+                            mat-menu-item
+                            (click)="openPostDialogEdit(post)"
+                        >
                             <span>Edit</span>
                         </button>
                         <button
                             mat-menu-item
-                            (click)="openDialogDelete(post.id)"
+                            (click)="openPostDialogDelete(post.id)"
                         >
                             <span>Delete</span>
                         </button>
@@ -58,32 +61,87 @@
             >
                 Likes: {{ this.post.likes.likesCount }}
             </div>
-
-            <!-- <div style="width: 190px; float: right;">
-                <button
-                    mat-raised-button
-                    (click)="deletePost(post.id)"
-                    *ngIf="showDeleteButton()"
-                    [disabled]="disabled"
-                    [class.spinner]="disabled"
-                    style="width: 190px; align-content: end;"
-                >
-                    Delete
-                </button>
-            </div> -->
         </div>
 
         <div class="post-comments-divider">
             <mat-divider></mat-divider>
         </div>
-        Comments
-        <div *ngFor="let comment of post.comments" class="comment-view">
-            <span class="comment-view-commenter-name">{{
-                comment.commentedByName
-            }}</span>
-            <span class="comment-view-content">{{ comment.content }}</span>
-        </div>
 
+        Comments
+        <div *ngFor="let comment of post.comments">
+            <div
+                style="
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    margin-bottom: 5px;
+                "
+            >
+                <div
+                    style="
+                        border: 1px solid darkgrey;
+                        background-color: #eeeeee;
+                        border-radius: 5px;
+                        padding: 3px;
+                        width: 100%;
+                    "
+                >
+                    <div style="width: 98%;">
+                        <span style="color: darkred; font-weight: bold;"
+                            >{{ comment.commentedByName }}
+                        </span>
+                        <span>{{ comment.content }}</span>
+                    </div>
+                </div>
+
+                <div
+                    style="
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: 9;
+                        text-align: right;
+                        margin-top: 5px;
+                    "
+                >
+                    <a
+                        [matMenuTriggerFor]="menu"
+                        *ngIf="showCommentMenuButton(comment)"
+                    >
+                        <mat-icon
+                            class="material-icons"
+                            style="cursor: pointer;"
+                            >more_horiz</mat-icon
+                        >
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <button
+                            mat-menu-item
+                            (click)="openCommentDialogEdit(comment)"
+                        >
+                            <span>Edit</span>
+                        </button>
+                        <button
+                            mat-menu-item
+                            (click)="
+                                openCommentDialogDelete(
+                                    (CommentToDelete = {
+                                        commentId: comment.id,
+                                        postId: post.id
+                                    })
+                                )
+                            "
+                        >
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
         <form [formGroup]="newCommentForm" (keydown)="createComment($event)">
             <mat-form-field
                 appearance="outline"

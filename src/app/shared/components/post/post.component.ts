@@ -5,7 +5,14 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
-import { Post, CommentToAdd, PostForUpdate } from 'src/backend/interfaces';
+import {
+    Post,
+    Comment,
+    CommentToAdd,
+    PostForUpdate,
+    CommentForUpdate,
+    CommentForDelete,
+} from 'src/backend/interfaces';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { PostEventsService } from '../../_events/post-events.service';
 import { CommentEventsService } from '../../_events/comment-events.service';
@@ -36,8 +43,8 @@ export class PostComponent implements OnInit {
         private postEventsService: PostEventsService,
         private commentEventsService: CommentEventsService,
         private ref: ChangeDetectorRef,
-        public deletePostDialog: MatDialog,
-        public editPostDialog: MatDialog
+        public deleteDialog: MatDialog,
+        public editDialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -61,6 +68,10 @@ export class PostComponent implements OnInit {
         this.commentEventsService.addComment(comment);
     updatePost = (post: PostForUpdate) =>
         this.postEventsService.updatePost(post);
+    deleteComment = (comment: CommentForDelete) =>
+        this.commentEventsService.deleteComment(comment);
+    updateComment = (comment: CommentForUpdate) =>
+        this.commentEventsService.updateComment(comment);
 
     public setLikeButton() {
         if (this.post.likes.currentUserLiked === true) {
@@ -94,23 +105,21 @@ export class PostComponent implements OnInit {
         return commentToAdd;
     }
 
-    openDialogDelete(postId: number) {
-        const deleteDialogRef = this.deletePostDialog.open(
-            YesNoDialogComponent,
-            {
-                data: {
-                    postId: postId,
-                    content: 'Are you sure you want to delete this post ?',
-                },
-            }
-        );
+    openPostDialogDelete(postId: number) {
+        const deleteDialogRef = this.deleteDialog.open(YesNoDialogComponent, {
+            data: {
+                id: postId,
+                content: 'Are you sure you want to delete this post ?',
+            },
+        });
         deleteDialogRef.afterClosed().subscribe((result) => {
-            if (result !== false) this.deletePost(result);
+            if (result !== null && result !== undefined && result !== false)
+                this.deletePost(result);
         });
     }
 
-    openDialogEdit(post: Post) {
-        const editDialogRef = this.editPostDialog.open(EditDialogComponent, {
+    openPostDialogEdit(post: Post) {
+        const editDialogRef = this.editDialog.open(EditDialogComponent, {
             maxWidth: '75vw',
             width: '75vw',
 
@@ -121,13 +130,71 @@ export class PostComponent implements OnInit {
             },
         });
         editDialogRef.afterClosed().subscribe((result) => {
-            let postForUpdate: PostForUpdate = {
-                id: result.id,
-                title: '',
-                body: result.value,
-            };
+            if (result !== null && result !== undefined) {
+                let postForUpdate: PostForUpdate = {
+                    id: result.id,
+                    title: '',
+                    body: result.value,
+                };
+                this.updatePost(postForUpdate);
+            }
+        });
+    }
 
-            if (result !== null) this.updatePost(postForUpdate);
+    commentMenu() {
+        console.log('commentMenu');
+    }
+
+    showCommentMenuButton(comment: Comment) {
+        return this.authService.getCurrentUser().id === comment.commentedById;
+    }
+
+    openCommentDialogEdit(comment: Comment) {
+        console.log('openCommentDialogEdit');
+        console.log(comment);
+
+        const editDialogRef = this.editDialog.open(EditDialogComponent, {
+            maxWidth: '75vw',
+            width: '75vw',
+
+            data: {
+                id: comment.id,
+                value: comment.content,
+                title: 'Comment',
+            },
+        });
+        editDialogRef.afterClosed().subscribe((result) => {
+            console.log('openCommentDialogEdit result');
+            console.log(result);
+
+            if (result !== null && result !== undefined) {
+                let commentForUpdate: CommentForUpdate = {
+                    postId: this.post.id,
+                    content: result.value,
+                    id: comment.id,
+                };
+                this.updateComment(commentForUpdate);
+            }
+        });
+    }
+
+    openCommentDialogDelete(commentToDelete: CommentForDelete) {
+        console.log('openCommentDialogDelete 1');
+        console.log(commentToDelete);
+
+        const deleteDialogRef = this.deleteDialog.open(YesNoDialogComponent, {
+            data: {
+                id: commentToDelete,
+                content: 'Are you sure you want to delete this comment ?',
+            },
+        });
+
+        deleteDialogRef.afterClosed().subscribe((result) => {
+            console.log('openCommentDialogDelete 2');
+            console.log(result);
+
+            if (result !== null && result !== undefined && result !== false)
+                this.deleteComment(result);
         });
     }
 }
