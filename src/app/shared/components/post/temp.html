@@ -72,11 +72,7 @@ Comments
         </div>
     </div>
 </div>
-<form
-    [formGroup]="newCommentForm"
-    (keydown)="createComment($event)"
-    style="visibility: hidden;"
->
+<form [formGroup]="newCommentForm" (keydown)="createComment($event)">
     <mat-form-field appearance="outline" color="primary" class="comment-input">
         <input
             matInput

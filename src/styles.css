@@ -16,6 +16,10 @@ body {
     float: right;
 }
 
+.standard-input {
+    width: 100%;
+}
+
 @keyframes spinner {
     to {
         transform: rotate(360deg);

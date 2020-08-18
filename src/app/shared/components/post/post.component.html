@@ -83,7 +83,7 @@
                 "
             >
                 <div>
-                    <span style="font-weight: bold;"
+                    <span style="font-weight: bold; color: darkred;"
                         >{{ comment.commentedByName }}
                     </span>
                     <span>{{ comment.content }}</span>
@@ -121,6 +121,44 @@
                             <span>Delete</span>
                         </button>
                     </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        class="user-comment-list-item-wrapper"
+        style="background-color: white;"
+    >
+        <div class="user-comment-list-item">
+            <div
+                style="
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                "
+            >
+                <div style="width: 100%;">
+                    <form
+                        [formGroup]="newCommentForm"
+                        (keydown)="createComment($event)"
+                    >
+                        <mat-form-field
+                            appearance="outline"
+                            color="primary"
+                            style="width: 100%;"
+                            class="comment-input"
+                        >
+                            <input
+                                matInput
+                                formControlName="newComment"
+                                maxlength="255"
+                                cdkTextareaAutosize
+                                placeholder="write comment..."
+                            />
+                        </mat-form-field>
+                    </form>
                 </div>
             </div>
         </div>
