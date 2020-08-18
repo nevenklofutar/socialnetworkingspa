@@ -1,3 +1,7 @@
-<div *ngFor="let post of posts">
-    <app-post [post]="post" [disabled]="updatingPosts.has(post.id)"></app-post>
+<div *ngFor="let post of posts" class="user-post-list-item-wrapper">
+    <app-post
+        [post]="post"
+        [disabled]="updatingPosts.has(post.id)"
+        class="user-post-list-item"
+    ></app-post>
 </div>

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../shared/shared.module';
 
 import { UserRoutingModule } from './user-routing.module';
@@ -28,7 +27,6 @@ import { ViewComponent } from './view/view.component';
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        FlexLayoutModule,
         SharedModule,
     ],
 })

@@ -29,7 +29,8 @@
                             "./node_modules/alertifyjs/build/css/alertify.min.css",
                             "./node_modules/alertifyjs/build/css/themes/default.min.css",
                             "src/styles.css",
-                            "src/styles-auth.css"
+                            "src/styles-auth.css",
+                            "src/styles-user.css"
                         ],
                         "scripts": [
                             "./node_modules/alertifyjs/build/alertify.min.js"
