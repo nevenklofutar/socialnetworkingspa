@@ -1,11 +1,15 @@
-<div *ngIf="registrationSuccess">
-    You have confirmed your email registration. Continue to login.
-    <button
-        type="button"
-        mat-raised-button
-        color="primary"
-        (click)="redirectToLogin()"
-    >
-        Login
-    </button>
+<div class="auth-standard-container" *ngIf="registrationSuccess">
+    <div class="auth-standard-item">
+        You have confirmed your email registration. Continue to login.
+
+        <br /><br />
+        <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="redirectToLogin()"
+        >
+            Login
+        </button>
+    </div>
 </div>

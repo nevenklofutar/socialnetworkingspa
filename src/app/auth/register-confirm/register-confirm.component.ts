@@ -29,16 +29,18 @@ export class RegisterConfirmComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.logout();
-        this.authService.registerConfirm(this.registerConfirmParams).subscribe(
-            () => {
-                this.registrationSuccess = true;
-            },
-            (error) => {
-                this.registrationSuccess = false;
-                this.alertifyService.error('error register confirm');
-            }
-        );
+        this.registrationSuccess = true;
+
+        // this.logout();
+        // this.authService.registerConfirm(this.registerConfirmParams).subscribe(
+        //     () => {
+        //         this.registrationSuccess = true;
+        //     },
+        //     (error) => {
+        //         this.registrationSuccess = false;
+        //         this.alertifyService.error('error register confirm');
+        //     }
+        // );
     }
 
     buttonClick() {

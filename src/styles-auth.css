@@ -1,0 +1,16 @@
+.auth-standard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid blue;
+    height: 100%;
+}
+
+.auth-standard-item {
+    width: 80%;
+    max-width: 450px;
+}
+
+.standard-input {
+    width: 100%;
+}

@@ -1,0 +1,126 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #eeeeee;
+}
+
+/* flex layout */
+.main-content {
+    width: 600px;
+}
+
+.mat-card {
+    margin-bottom: 7px;
+}
+
+.mat-toolbar-custom {
+    margin-bottom: 5px;
+}
+
+.mat-button-header {
+    margin-left: 5px;
+}
+
+.post-content {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.comment-input {
+    width: 100%;
+    height: 10px;
+    margin-top: 10px;
+}
+
+.comment-input-dialog {
+    width: 100%;
+}
+
+.comment-input .mat-form-field-infix {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.comment-view {
+    border: 1px solid lightgray;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 3px;
+}
+
+.post-comments-divider {
+    margin-bottom: 10px;
+}
+
+.comment-view-commenter-name {
+    font-weight: bold;
+    color: darkblue;
+    padding-right: 5px;
+}
+
+.comment-view-content {
+    font-weight: normal;
+}
+
+.post-actions {
+    height: auto;
+}
+
+/* START organize this */
+.main-div {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.example-card {
+    width: 300px;
+}
+
+.user-profile-card {
+    width: 600px;
+}
+
+.post-list-post {
+    border: 1px solid lightgray;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px;
+}
+/* END organize this */
+
+/* spinner on a button while processing */
+.spinner-submit-button {
+    margin-left: 5px;
+    float: right;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner 0.8s linear infinite;
+}
