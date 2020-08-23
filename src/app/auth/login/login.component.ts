@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
     }
 
     checkIsLogin() {
-        if (this.authService.loggedIn() === true)
-            this.router.navigate(['/user/main']);
+        // if (this.authService.loggedIn())
+        //     this.router.navigate(['/user/main']);
     }
 
     buildForm() {

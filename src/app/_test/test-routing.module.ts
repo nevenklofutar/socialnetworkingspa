@@ -8,20 +8,25 @@ import { AccordioncdkComponent } from './accordioncdk/accordioncdk.component';
 import { FormComponent } from './form/form.component';
 
 export const routes: Routes = [
-    {
-        path: 'test',
-        children: [
-            { path: 'toolbar', component: ToolbarComponent },
-            { path: 'flexlayout', component: FlexLayoutComponent },
-            { path: 'expansionpanel', component: ExpansionPanelComponent },
-            { path: 'accordion', component: AccordioncdkComponent },
-            { path: 'form', component: FormComponent },
-        ],
-    },
+    { path: 'toolbar', component: ToolbarComponent },
+    { path: 'flexlayout', component: FlexLayoutComponent },
+    { path: 'expansionpanel', component: ExpansionPanelComponent },
+    { path: 'accordion', component: AccordioncdkComponent },
+    { path: 'form', component: FormComponent },
+    // {
+    //     path: 'test',
+    //     children: [
+    //         { path: 'toolbar', component: ToolbarComponent },
+    //         { path: 'flexlayout', component: FlexLayoutComponent },
+    //         { path: 'expansionpanel', component: ExpansionPanelComponent },
+    //         { path: 'accordion', component: AccordioncdkComponent },
+    //         { path: 'form', component: FormComponent },
+    //     ],
+    // },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class TestRoutingModule {}

@@ -1,6 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,8 +18,6 @@ import { EditDialogComponent } from './dialogs/edit-dialog/edit-dialog.component
         EditDialogComponent,
     ],
     imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,

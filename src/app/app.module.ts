@@ -5,27 +5,30 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { TestModule } from './_test/test.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../app/material/material.module';
 import { NavToolbarComponent } from '../app/shared/components/nav-toolbar/nav-toolbar.component';
+import { HomeComponent } from './home.component';
+import { NotFoundComponent } from './not-found.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
 }
 
 @NgModule({
-    declarations: [AppComponent, NavToolbarComponent],
+    declarations: [
+        AppComponent,
+        NavToolbarComponent,
+        HomeComponent,
+        NotFoundComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        AuthModule,
         HttpClientModule,
         BrowserAnimationsModule,
         UserModule,
-        TestModule,
         MaterialModule,
         JwtModule.forRoot({
             config: {

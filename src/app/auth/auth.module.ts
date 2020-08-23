@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
@@ -22,8 +20,6 @@ import { ForgotpasswordresetComponent } from './forgotpasswordreset/forgotpasswo
     ],
     imports: [
         CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule,
         AuthRoutingModule,
         FormsModule,
         ReactiveFormsModule,
