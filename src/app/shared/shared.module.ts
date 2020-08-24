@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +19,7 @@ import { EditDialogComponent } from './dialogs/edit-dialog/edit-dialog.component
         EditDialogComponent,
     ],
     imports: [
+        CommonModule,
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
