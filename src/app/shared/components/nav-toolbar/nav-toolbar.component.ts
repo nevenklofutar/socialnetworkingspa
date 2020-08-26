@@ -44,6 +44,6 @@ export class NavToolbarComponent implements OnInit {
     }
 
     profile() {
-        alert('under contruction');
+        this.router.navigate(['/user/profile']);
     }
 }
