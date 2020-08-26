@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { ViewComponent } from './view/view.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { ViewComponent } from './view/view.component';
         SearchComponent,
         SearchListComponent,
         ViewComponent,
+        CreatePostComponent,
     ],
     imports: [
         CommonModule,

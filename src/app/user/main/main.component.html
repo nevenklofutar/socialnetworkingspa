@@ -1,65 +1,14 @@
-<div class="user-standard-container">
-    <form
-        [formGroup]="newPostForm"
-        (ngSubmit)="onSubmit()"
-        class="user-standard-item"
-    >
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Profile</mat-card-title>
-                <mat-card-subtitle
-                    >{{ this.currentUser?.firstName }}
-                    {{ this.currentUser?.lastName }}</mat-card-subtitle
-                >
-            </mat-card-header>
-            <mat-card-content>
-                <div name="newPostDiv">
-                    <mat-form-field
-                        appearance="outline"
-                        color="primary"
-                        class="standard-input"
-                    >
-                        <mat-label>Write something...</mat-label>
-                        <textarea
-                            matInput
-                            formControlName="newpost"
-                            maxlength="255"
-                            (focus)="this.showPostButtons = true"
-                            cdkTextareaAutosize
-                        >
-                        </textarea>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <span name="newPostButtonsDiv" *ngIf="showPostButtons">
-                        <button
-                            type="submit"
-                            mat-raised-button
-                            color="primary"
-                            [disabled]="showPostButton() || processingForm"
-                            [class.spinner]="processingForm"
-                        >
-                            Post
-                        </button>
-                        <button
-                            type="button"
-                            mat-raised-button
-                            color="accent"
-                            (click)="cancelPost()"
-                        >
-                            Cancel
-                        </button>
-                    </span>
-                </div>
-            </mat-card-content>
-            <mat-card-actions> </mat-card-actions>
-        </mat-card>
-    </form>
+<div class="top-container">
+    <app-create-post
+        class="item-600 item-style profile-wrapper"
+        [currentUser]="this.currentUser"
+        [postListComponent]="this.postListComponent"
+    ></app-create-post>
 
-    <div class="user-standard-item">Posts</div>
+    <div class="item-600 item-style"><h2>Posts</h2></div>
 
     <app-post-list
         [currentUserId]="this.currentUser?.id"
-        class="user-post-list-wrapper"
+        class="item-600 item-wrapper"
     ></app-post-list>
 </div>

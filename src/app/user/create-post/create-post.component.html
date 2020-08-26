@@ -1,0 +1,44 @@
+<form [formGroup]="newPostForm" (ngSubmit)="onSubmit()">
+    <div class="profile-title">Profile</div>
+    <div>
+        {{ this.currentUser?.firstName }} {{ this.currentUser?.lastName }}
+    </div>
+    <div name="newPostDiv">
+        <mat-form-field
+            appearance="outline"
+            color="primary"
+            class="standard-input"
+        >
+            <mat-label>Write something...</mat-label>
+            <textarea
+                matInput
+                formControlName="newpost"
+                maxlength="255"
+                (focus)="this.showPostButtons = true"
+                resizeToFitContent
+            >
+            </textarea>
+        </mat-form-field>
+    </div>
+    <div>
+        <span name="newPostButtonsDiv" *ngIf="showPostButtons">
+            <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="showPostButton() || processingForm"
+                [class.spinner]="processingForm"
+            >
+                Post
+            </button>
+            <button
+                type="button"
+                mat-raised-button
+                color="accent"
+                (click)="cancelPost()"
+            >
+                Cancel
+            </button>
+        </span>
+    </div>
+</form>

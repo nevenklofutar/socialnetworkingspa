@@ -5,7 +5,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserModule } from './user/user.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../app/material/material.module';
 import { NavToolbarComponent } from '../app/shared/components/nav-toolbar/nav-toolbar.component';
@@ -28,7 +27,6 @@ export function tokenGetter() {
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        UserModule,
         MaterialModule,
         JwtModule.forRoot({
             config: {
