@@ -1,24 +1,13 @@
-<!-- Classes main-div and example-card are catagorized in .css file -->
-<div fxLayout="column" fxLayoutAlign=" center">
-    <div class="main-content">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Profile</mat-card-title>
-                <mat-card-subtitle
-                    >{{ this.user?.firstName }}
-                    {{ this.user?.lastName }}</mat-card-subtitle
-                >
-            </mat-card-header>
-            <mat-card-content></mat-card-content>
-            <mat-card-actions> </mat-card-actions>
-        </mat-card>
+<div class="top-container">
+    <div class="item-600 item-style profile-wrapper">
+        <div class="profile-title">Profile</div>
+        <div>{{ this.user?.firstName }} {{ this.user?.lastName }}</div>
     </div>
 
-    <div class="main-content">
-        <span class="mat-h1">Posts</span>
-    </div>
+    <div class="item-600 item-style"><h2>Posts</h2></div>
 
-    <div class="main-content">
-        <app-post-list [currentUserId]="userId"></app-post-list>
-    </div>
+    <app-post-list
+        [currentUserId]="userId"
+        class="item-600 item-wrapper"
+    ></app-post-list>
 </div>

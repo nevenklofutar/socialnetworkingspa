@@ -5,7 +5,7 @@
     <div>{{ user.username }} - {{ user.firstName }} {{ user.lastName }}</div>
     <div fxFlex></div>
     <div>
-        <a mat-raised-button color="accent" href="/user/view?id={{ user.id }}"
+        <a mat-raised-button color="accent" (click)="redirectToUserPage(user)"
             >View</a
         >
     </div>
