@@ -1,16 +1,12 @@
-<div *ngFor="let user of users" class="user-search-list-item-wrapper">
-    <div class="user-search-list-item">
-        <div>
-            {{ user.username }} - {{ user.firstName }} {{ user.lastName }}
-        </div>
-        <div fxFlex></div>
-        <div>
-            <a
-                mat-raised-button
-                color="accent"
-                href="/user/view?id={{ user.id }}"
-                >View</a
-            >
-        </div>
+<div
+    *ngFor="let user of users"
+    class="item-600 item-style horizontal-container"
+>
+    <div>{{ user.username }} - {{ user.firstName }} {{ user.lastName }}</div>
+    <div fxFlex></div>
+    <div>
+        <a mat-raised-button color="accent" href="/user/view?id={{ user.id }}"
+            >View</a
+        >
     </div>
 </div>
