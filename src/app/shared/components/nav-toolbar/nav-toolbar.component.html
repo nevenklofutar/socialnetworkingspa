@@ -5,13 +5,15 @@
         </button>
         {{ currentUser?.firstName }} {{ currentUser?.lastName }}
     </div>
-    <div style="flex: 1 1 auto;"></div>
+    <div style="flex: 1 1 auto"></div>
     <div>
-        <button mat-raised-button (click)="search()" class="mat-button-header">
-            Search
+        <button mat-icon-button [matMenuTriggerFor]="navmenu">
+            <mat-icon>menu</mat-icon>
         </button>
-        <button mat-raised-button (click)="logout()" class="mat-button-header">
-            Logout
-        </button>
+        <mat-menu #navmenu="matMenu">
+            <button mat-menu-item (click)="profile()">Profile</button>
+            <button mat-menu-item (click)="search()">Search</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
     </div>
 </mat-toolbar>

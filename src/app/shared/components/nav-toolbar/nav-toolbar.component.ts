@@ -42,4 +42,8 @@ export class NavToolbarComponent implements OnInit {
     home() {
         this.router.navigate(['/user/main']);
     }
+
+    profile() {
+        alert('under contruction');
+    }
 }

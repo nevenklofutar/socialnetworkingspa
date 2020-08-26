@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 const material = [
     MatCardModule,
@@ -18,6 +19,7 @@ const material = [
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatIconModule,
+    MatMenuModule,
 ];
 
 @NgModule({
