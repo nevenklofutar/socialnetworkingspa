@@ -16,17 +16,27 @@ export interface RegisterConfirmParams {
     token: string;
 }
 
-export interface UserToLogin {
-    username: string;
-    password: string;
-}
-
 export interface User {
     username: string;
     email: string;
     firstName: string;
     lastName: string;
     id: string;
+}
+export interface UserToLogin {
+    username: string;
+    password: string;
+}
+
+export interface UserForForgotPassword {
+    email: string;
+}
+
+export interface UserForForgotPasswordConfirm {
+    password: string;
+    passwordConfirm: string;
+    email: string;
+    token: string;
 }
 
 export interface SearchUsersParams {

@@ -24,11 +24,11 @@ export class RegisterConfirmComponent implements OnInit {
             this.registerConfirmParams.token = decodeURIComponent(
                 params['token']
             );
-            console.log(this.registerConfirmParams.token);
         });
     }
 
     ngOnInit() {
+        // TODO: this is something temp ?!?!?!
         this.registrationSuccess = true;
 
         // this.logout();

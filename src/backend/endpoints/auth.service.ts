@@ -6,6 +6,8 @@ import {
     RegisterConfirmParams,
     UserToLogin,
     User,
+    UserForForgotPassword,
+    UserForForgotPasswordConfirm,
 } from '../interfaces';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
@@ -47,6 +49,22 @@ export class AuthService {
                     this.authEventsService.setCurrentUser(this.currentUser);
                 }
             })
+        );
+    }
+
+    forgotpassword(userForForgotPassword: UserForForgotPassword) {
+        return this.http.post(
+            this.baseUrl + 'forgotpassword',
+            userForForgotPassword
+        );
+    }
+
+    forgotpasswordreset(
+        userForForgotPasswordConfirm: UserForForgotPasswordConfirm
+    ) {
+        return this.http.post(
+            this.baseUrl + 'forgotpasswordconfirm',
+            userForForgotPasswordConfirm
         );
     }
 

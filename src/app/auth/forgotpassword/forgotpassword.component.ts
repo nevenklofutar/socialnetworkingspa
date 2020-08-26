@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/backend/endpoints/auth.service';
+import { UserForForgotPassword } from 'src/backend/interfaces';
+import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 
 @Component({
     selector: 'app-forgotpassword',
@@ -7,12 +10,36 @@ import { FormControl, Validators } from '@angular/forms';
     styleUrls: ['./forgotpassword.component.css'],
 })
 export class ForgotpasswordComponent implements OnInit {
-    emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.email,
-    ]);
+    formEmail: FormGroup;
 
-    constructor() {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
+        private alertifyService: AlertifyService
+    ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.buildForm();
+    }
+
+    buildForm() {
+        this.formEmail = this.formBuilder.group({
+            emailInput: ['', [Validators.required, Validators.email]],
+        });
+    }
+
+    onSubmit() {
+        let email = this.formEmail.get('emailInput').value;
+        let userForForgotPass: UserForForgotPassword = { email };
+        this.authService.forgotpassword(userForForgotPass).subscribe(
+            () => {
+                this.alertifyService.success(
+                    'Reset link has been sent to your email.'
+                );
+            },
+            (error) => {
+                this.alertifyService.error(error.error.title);
+            }
+        );
+    }
 }
