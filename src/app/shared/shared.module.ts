@@ -10,6 +10,7 @@ import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { YesNoDialogComponent } from './dialogs/yes-no-dialog/yes-no-dialog.component';
 import { EditDialogComponent } from './dialogs/edit-dialog/edit-dialog.component';
+import { DragNDropDirective } from './directives/drag-n-drop.directive';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { EditDialogComponent } from './dialogs/edit-dialog/edit-dialog.component
         PostListComponent,
         YesNoDialogComponent,
         EditDialogComponent,
+        DragNDropDirective,
     ],
     imports: [
         CommonModule,
