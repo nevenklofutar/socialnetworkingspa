@@ -11,6 +11,7 @@ import { SearchComponent } from './search/search.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { ViewComponent } from './view/view.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { CreatePostUploadImagesComponent } from './create-post-upload-images/create-post-upload-images.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
         SearchListComponent,
         ViewComponent,
         CreatePostComponent,
+        CreatePostUploadImagesComponent,
     ],
     imports: [
         CommonModule,
