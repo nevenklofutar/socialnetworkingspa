@@ -33,13 +33,14 @@ export class MultipleUploadPreview2Component implements OnInit {
     }
 
     onFileChange(event) {
+        console.log(event);
+
         if (event.target.files && event.target.files[0]) {
             var filesAmount = event.target.files.length;
             for (let i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
 
                 reader.onload = (event: any) => {
-                    // console.log(event.target.result);
                     this.images.push(event.target.result);
 
                     this.myForm.patchValue({
@@ -47,6 +48,7 @@ export class MultipleUploadPreview2Component implements OnInit {
                     });
                 };
 
+                console.log(event.target.files[i]);
                 reader.readAsDataURL(event.target.files[i]);
             }
         }

@@ -22,6 +22,35 @@
     </div>
     <div name="newPostButtonsDiv" *ngIf="showPostButtons">
         <div>
+            <div
+                class="uploadfilecontainer"
+                appDragDrop
+                (click)="fileInput.click()"
+                (fileDropped)="onFileChange($event)"
+            >
+                <input
+                    hidden
+                    type="file"
+                    #fileInput
+                    (change)="onFileChange($event.target.files)"
+                />
+            </div>
+            <div style="display: flex; flex-flow: row">
+                <div
+                    *ngFor="let url of images; index as i"
+                    (click)="removeImage(i)"
+                >
+                    <img
+                        [src]="url"
+                        height="100px"
+                        width="100px"
+                        style="margin: 3px"
+                    />
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div>
             <button
                 type="submit"
                 mat-raised-button

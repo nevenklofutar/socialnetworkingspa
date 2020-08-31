@@ -17,8 +17,6 @@ export class DragNDropDirective {
 
     // Dragover listener
     @HostListener('dragover', ['$event']) onDragOver(evt): void {
-        console.log('dragover');
-
         evt.preventDefault();
         evt.stopPropagation();
         this.background = '#9ecbec';
@@ -27,8 +25,6 @@ export class DragNDropDirective {
 
     // Dragleave listener
     @HostListener('dragleave', ['$event']) public onDragLeave(evt): void {
-        console.log('dragleave');
-
         evt.preventDefault();
         evt.stopPropagation();
         this.background = '#f5fcff';
@@ -36,8 +32,6 @@ export class DragNDropDirective {
     }
     // Drop listener
     @HostListener('drop', ['$event']) public ondrop(evt): void {
-        console.log('drop');
-
         evt.preventDefault();
         evt.stopPropagation();
         this.background = '#f5fcff';
@@ -48,7 +42,5 @@ export class DragNDropDirective {
         }
     }
 
-    constructor() {
-        console.log('hello');
-    }
+    constructor() {}
 }
