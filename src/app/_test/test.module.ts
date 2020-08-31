@@ -15,6 +15,7 @@ import { FormComponent } from './form/form.component';
 import { MultipleUploadPreviewComponent } from './multiple-upload-preview/multiple-upload-preview.component';
 import { MultipleUploadPreview2Component } from './multiple-upload-preview-2/multiple-upload-preview-2.component';
 import { DragNDropUploadComponent } from './drag-n-drop-upload/drag-n-drop-upload.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { DragNDropUploadComponent } from './drag-n-drop-upload/drag-n-drop-uploa
         MatButtonModule,
         FormsModule,
         ReactiveFormsModule,
+        SharedModule,
     ],
 })
 export class TestModule {}

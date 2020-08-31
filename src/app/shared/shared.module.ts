@@ -12,14 +12,18 @@ import { YesNoDialogComponent } from './dialogs/yes-no-dialog/yes-no-dialog.comp
 import { EditDialogComponent } from './dialogs/edit-dialog/edit-dialog.component';
 import { DragNDropDirective } from './directives/drag-n-drop.directive';
 
+const components = [
+    PostComponent,
+    PostListComponent,
+    YesNoDialogComponent,
+    EditDialogComponent,
+];
+const directives = [DragNDropDirective];
+
+const declarations = [...components, ...directives];
+
 @NgModule({
-    declarations: [
-        PostComponent,
-        PostListComponent,
-        YesNoDialogComponent,
-        EditDialogComponent,
-        DragNDropDirective,
-    ],
+    declarations: [...declarations],
     imports: [
         CommonModule,
         MaterialModule,
@@ -29,6 +33,6 @@ import { DragNDropDirective } from './directives/drag-n-drop.directive';
         MatMenuModule,
         MatDialogModule,
     ],
-    exports: [PostListComponent],
+    exports: [...declarations],
 })
 export class SharedModule {}
