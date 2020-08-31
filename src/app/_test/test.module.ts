@@ -12,6 +12,9 @@ import { ToolbarComponent } from './toolbar/toolbarcomponent';
 import { FlexLayoutComponent } from './flex-layout/flex-layout.component';
 import { ExpansionPanelComponent } from './expansion-panel/expansion-panel.component';
 import { FormComponent } from './form/form.component';
+import { MultipleUploadPreviewComponent } from './multiple-upload-preview/multiple-upload-preview.component';
+import { MultipleUploadPreview2Component } from './multiple-upload-preview-2/multiple-upload-preview-2.component';
+import { DragNDropUploadComponent } from './drag-n-drop-upload/drag-n-drop-upload.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +22,9 @@ import { FormComponent } from './form/form.component';
         FlexLayoutComponent,
         ExpansionPanelComponent,
         FormComponent,
+        MultipleUploadPreviewComponent,
+        MultipleUploadPreview2Component,
+        DragNDropUploadComponent,
     ],
     imports: [
         CommonModule,

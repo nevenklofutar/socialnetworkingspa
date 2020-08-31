@@ -18,6 +18,11 @@ const routes: Routes = [
         loadChildren: () =>
             import('./auth/auth.module').then((m) => m.AuthModule),
     },
+    {
+        path: 'test',
+        loadChildren: () =>
+            import('./_test/test.module').then((m) => m.TestModule),
+    },
     { path: '**', component: NotFoundComponent },
 ];
 
