@@ -37,11 +37,11 @@
             </div>
             <div style="display: flex; flex-flow: row">
                 <div
-                    *ngFor="let url of images; index as i"
+                    *ngFor="let item of this.photosForUpload.photos; index as i"
                     (click)="removeImage(i)"
                 >
                     <img
-                        [src]="url"
+                        [src]="item.photoBase64String"
                         height="100px"
                         width="100px"
                         style="margin: 3px"

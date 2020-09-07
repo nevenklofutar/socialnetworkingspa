@@ -87,3 +87,13 @@ export interface CommentForDelete {
     postId: number;
     commentId: number;
 }
+
+export interface PhotoForUpload {
+    photoName: string;
+    photoBase64String: string;
+    postId: number;
+}
+
+export interface PhotosForUpload {
+    photos: PhotoForUpload[];
+}

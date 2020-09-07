@@ -8,7 +8,8 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/shared/_services/alertify.service';
 import { PostService } from 'src/backend/endpoints/post.service';
-import { Likes, Post, User } from 'src/backend/interfaces';
+import { PhotoService } from 'src/backend/endpoints/photo.service';
+import { Likes, Post, User, PhotosForUpload } from 'src/backend/interfaces';
 import { PostListComponent } from 'src/app/shared/components/post-list/post-list.component';
 
 @Component({
@@ -26,12 +27,13 @@ export class CreatePostComponent implements OnInit {
     processingForm = false;
 
     // drag and drop
-    images = [];
+    photosForUpload: PhotosForUpload = { photos: [] };
 
     constructor(
         private formBuilder: FormBuilder,
         private alertifyService: AlertifyService,
         private postService: PostService,
+        private photoService: PhotoService,
         private ref: ChangeDetectorRef
     ) {}
 
@@ -42,17 +44,13 @@ export class CreatePostComponent implements OnInit {
     buildForm() {
         this.newPostForm = this.formBuilder.group({
             newpost: [''],
-            file: ['', [Validators.required]],
-            fileSource: ['', [Validators.required]],
         });
     }
 
     cancelPost() {
         this.showPostButtons = false;
         this.newPostForm.get('newpost').patchValue('');
-        this.newPostForm.get('file').patchValue('');
-        this.newPostForm.get('fileSource').patchValue('');
-        this.images = [];
+        this.photosForUpload = <PhotosForUpload>{ photos: [] };
     }
 
     showPostButton() {
@@ -62,24 +60,26 @@ export class CreatePostComponent implements OnInit {
     onSubmit() {
         this.processingForm = true;
         let postBody = this.newPostForm.get('newpost').value;
+
         if (!postBody || postBody.length == 0) return;
 
-        let likes: Likes = {
-            currentUserLiked: false,
-            likesCount: 0,
-        };
         let postToCreate: Partial<Post> = {
             id: 0,
             title: 'title',
             body: postBody,
             createdById: this.currentUser.id,
-            likes: likes,
+            likes: {
+                currentUserLiked: false,
+                likesCount: 0,
+            },
         };
 
         this.postService
             .createPost(postToCreate)
             .subscribe(
-                (result) => {
+                (response: any) => {
+                    this.postPhotos(response.id);
+
                     this.showPostButtons = false;
                     this.newPostForm.get('newpost').patchValue('');
                     this.postListComponent.getPosts();
@@ -93,21 +93,38 @@ export class CreatePostComponent implements OnInit {
             });
     }
 
+    postPhotos(postId: number) {
+        this.photosForUpload.photos.forEach((element) => {
+            element.postId = postId;
+        });
+
+        this.photoService
+            .uploadPhotos(this.photosForUpload)
+            .subscribe(
+                () => {},
+                (error) => {
+                    this.alertifyService.error(error.error.title);
+                }
+            )
+            .add(() => {
+                this.showPostButtons = false;
+                this.processingForm = false;
+            });
+    }
+
     // drag and drop
     onFileChange(event) {
-        console.log(event);
-
         if (event && event[0]) {
             var filesAmount = event.length;
             for (let i = 0; i < filesAmount; i++) {
-                if (this.validateFile(event[i].name)) {
-                    console.log('file valid');
-
+                const fileName = event[i].name;
+                if (this.validateFile(fileName)) {
                     var reader = new FileReader();
                     reader.onload = (event: any) => {
-                        this.images.push(event.target.result);
-                        this.newPostForm.patchValue({
-                            fileSource: this.images,
+                        this.photosForUpload.photos.push({
+                            photoName: fileName,
+                            photoBase64String: event.target.result,
+                            postId: 0,
                         });
                         this.ref.detectChanges();
                     };
