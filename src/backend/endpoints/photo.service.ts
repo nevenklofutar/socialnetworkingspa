@@ -12,6 +12,6 @@ export class PhotoService {
     constructor(private http: HttpClient) {}
 
     uploadPhotos(photosForUpload: PhotosForUpload) {
-        return this.http.post(this.baseUrl, photosForUpload);
+        return this.http.post(this.baseUrl + '/base64strings', photosForUpload);
     }
 }

@@ -11,6 +11,7 @@ import { PostService } from 'src/backend/endpoints/post.service';
 import { PhotoService } from 'src/backend/endpoints/photo.service';
 import { Likes, Post, User, PhotosForUpload } from 'src/backend/interfaces';
 import { PostListComponent } from 'src/app/shared/components/post-list/post-list.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-create-post',
@@ -28,13 +29,15 @@ export class CreatePostComponent implements OnInit {
 
     // drag and drop
     photosForUpload: PhotosForUpload = { photos: [] };
+    files = [];
 
     constructor(
         private formBuilder: FormBuilder,
         private alertifyService: AlertifyService,
         private postService: PostService,
         private photoService: PhotoService,
-        private ref: ChangeDetectorRef
+        private ref: ChangeDetectorRef,
+        private http: HttpClient
     ) {}
 
     ngOnInit() {
@@ -44,6 +47,7 @@ export class CreatePostComponent implements OnInit {
     buildForm() {
         this.newPostForm = this.formBuilder.group({
             newpost: [''],
+            files: [''],
         });
     }
 
@@ -51,6 +55,7 @@ export class CreatePostComponent implements OnInit {
         this.showPostButtons = false;
         this.newPostForm.get('newpost').patchValue('');
         this.photosForUpload = <PhotosForUpload>{ photos: [] };
+        this.files = [];
     }
 
     showPostButton() {
@@ -82,7 +87,6 @@ export class CreatePostComponent implements OnInit {
 
                     this.showPostButtons = false;
                     this.newPostForm.get('newpost').patchValue('');
-                    this.postListComponent.getPosts();
                 },
                 (error) => {
                     this.alertifyService.error(error.error.title);
@@ -93,6 +97,33 @@ export class CreatePostComponent implements OnInit {
             });
     }
 
+    // postPhotosTest() {
+    //     // MULTI UPLOAD IMAGES
+    //     // this works when you want to send mutiple files at once to the backend
+    //     // on the .net core backend, you need to receive it like this:
+    //     // public IActionResult AddPhotosForUserTest([FromForm] IFormFileCollection files) {
+    //     // files = Request.Form.Files;
+
+    //     const formData = new FormData();
+    //     for (var i = 0; i < this.files.length; i++) {
+    //         formData.append('files[]', this.files[i], this.files[i].name);
+    //     }
+
+    //     console.log('this.files');
+    //     console.log(this.files);
+    //     console.log('formData.get("file[]")');
+    //     console.log(formData.getAll('files[]'));
+
+    //     this.http
+    //         .post('https://localhost:5001/api/photos/filecollection', formData)
+    //         .subscribe(
+    //             (result) => {},
+    //             (error) => {
+    //                 console.log(error);
+    //             }
+    //         );
+    // }
+
     postPhotos(postId: number) {
         this.photosForUpload.photos.forEach((element) => {
             element.postId = postId;
@@ -101,7 +132,9 @@ export class CreatePostComponent implements OnInit {
         this.photoService
             .uploadPhotos(this.photosForUpload)
             .subscribe(
-                () => {},
+                () => {
+                    this.postListComponent.getPosts();
+                },
                 (error) => {
                     this.alertifyService.error(error.error.title);
                 }
@@ -117,6 +150,7 @@ export class CreatePostComponent implements OnInit {
         if (event && event[0]) {
             var filesAmount = event.length;
             for (let i = 0; i < filesAmount; i++) {
+                this.files.push(event[i]);
                 const fileName = event[i].name;
                 if (this.validateFile(fileName)) {
                     var reader = new FileReader();

@@ -33,6 +33,8 @@
                     type="file"
                     #fileInput
                     (change)="onFileChange($event.target.files)"
+                    multiple
+                    formControlName="files"
                 />
             </div>
             <div style="display: flex; flex-flow: row">
