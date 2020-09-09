@@ -85,8 +85,7 @@ export class CreatePostComponent implements OnInit {
                 (response: any) => {
                     this.postPhotos(response.id);
 
-                    this.showPostButtons = false;
-                    this.newPostForm.get('newpost').patchValue('');
+                    this.cancelPost();
                 },
                 (error) => {
                     this.alertifyService.error(error.error.title);

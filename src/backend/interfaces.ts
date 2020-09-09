@@ -50,6 +50,7 @@ export interface Post {
     createdById: string;
     likes: Likes;
     comments: Comment[];
+    photos: Photo[];
 }
 
 export interface PostForUpdate {
@@ -86,6 +87,11 @@ export interface CommentForUpdate {
 export interface CommentForDelete {
     postId: number;
     commentId: number;
+}
+
+export interface Photo {
+    id: number;
+    url: string;
 }
 
 export interface PhotoForUpload {

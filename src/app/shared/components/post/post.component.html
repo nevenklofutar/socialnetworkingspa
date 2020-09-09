@@ -2,7 +2,7 @@
     <div>({{ post.id }}) {{ post.body }}</div>
     <div>
         <a [matMenuTriggerFor]="menu" *ngIf="showDeleteButton()">
-            <mat-icon class="material-icons" style="cursor: pointer;"
+            <mat-icon class="material-icons" style="cursor: pointer"
                 >more_vert</mat-icon
             >
         </a>
@@ -19,6 +19,33 @@
 
 <mat-divider class="item-600"></mat-divider>
 
+<app-image-gallery [photos]="post.photos"></app-image-gallery>
+
+<!-- https://www.w3schools.com/howto/howto_css_image_overlay.asp -->
+<!-- <div
+    class="item-600 container"
+    *ngIf="post.photos.length > 0"
+    (click)="openImageGalleryDialog(post.photos)"
+>
+    <div *ngIf="post.photos.length === 1">
+        <img [src]="photo.url" width="590" *ngFor="let photo of post.photos" />
+    </div>
+    <div *ngIf="post.photos.length === 2">
+        <img [src]="photo.url" width="295" *ngFor="let photo of post.photos" />
+    </div>
+    <div *ngIf="post.photos.length === 3">
+        <img [src]="photo.url" width="196" *ngFor="let photo of post.photos" />
+    </div>
+    <div *ngIf="post.photos.length > 3">
+        <img [src]="post.photos[0].url" width="196" class="image" />
+        <img [src]="post.photos[1].url" width="196" class="image" />
+        <img [src]="post.photos[2].url" width="196" class="image" />
+        <div class="imgoverlay">+{{ post.photos.length - 3 }}</div>
+    </div>
+</div> -->
+
+<mat-divider class="item-600"></mat-divider>
+
 <div class="item-600 horizontal-container">
     <div>
         <button
@@ -27,19 +54,17 @@
             (click)="toggleLike(post.id)"
             [disabled]="disabled"
             [class.spinner]="disabled"
-            style="width: 150px;"
+            style="width: 150px"
         >
             {{ likeButtonName }}
         </button>
     </div>
-    <div style="width: 150px;">Likes: {{ this.post.likes.likesCount }}</div>
+    <div style="width: 150px">Likes: {{ this.post.likes.likesCount }}</div>
 </div>
 
 <mat-divider class="item-600"></mat-divider>
 
-<div class="item-600">
-    Comments
-</div>
+<div class="item-600">Comments</div>
 
 <div class="item-600 vertical-container">
     <div
@@ -47,7 +72,7 @@
         *ngFor="let comment of post.comments"
     >
         <div>
-            <span style="font-weight: bold; color: darkred;"
+            <span style="font-weight: bold; color: darkred"
                 >{{ comment.commentedByName }}
             </span>
             <span>{{ comment.content }}</span>
@@ -57,7 +82,7 @@
                 [matMenuTriggerFor]="menu"
                 *ngIf="showCommentMenuButton(comment)"
             >
-                <mat-icon class="material-icons" style="cursor: pointer;"
+                <mat-icon class="material-icons" style="cursor: pointer"
                     >more_horiz</mat-icon
                 >
             </a>

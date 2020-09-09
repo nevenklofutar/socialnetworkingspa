@@ -12,6 +12,7 @@ import {
     PostForUpdate,
     CommentForUpdate,
     CommentForDelete,
+    Photo,
 } from 'src/backend/interfaces';
 import { AuthService } from 'src/backend/endpoints/auth.service';
 import { PostEventsService } from '../../_events/post-events.service';
@@ -20,6 +21,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { YesNoDialogComponent } from '../../dialogs/yes-no-dialog/yes-no-dialog.component';
 import { EditDialogComponent } from '../../dialogs/edit-dialog/edit-dialog.component';
+import { ImageGalleryComponent } from '../image-gallery/image-gallery.component';
 
 @Component({
     selector: 'app-post',
