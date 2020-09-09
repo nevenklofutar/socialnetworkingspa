@@ -148,6 +148,13 @@ export class CreatePostComponent implements OnInit {
     onFileChange(event) {
         if (event && event[0]) {
             var filesAmount = event.length;
+
+            // max 5 files to uplad
+            if (filesAmount + this.files.length > 5) {
+                this.alertifyService.error('Max 5 files allowed');
+                return;
+            }
+
             for (let i = 0; i < filesAmount; i++) {
                 this.files.push(event[i]);
                 const fileName = event[i].name;
