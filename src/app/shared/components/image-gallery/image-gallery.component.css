@@ -6,8 +6,8 @@
 .image {
     opacity: 1;
     display: inline-flexbox;
-    width: 196;
-    height: auto;
+    /* width: 196px;
+    height: 138px; */
     transition: 0.5s ease;
     backface-visibility: hidden;
     cursor: pointer;
@@ -32,10 +32,10 @@
     left: 392px;
     top: 0px;
     width: 196px;
-    height: 196px;
+    height: 138px;
     text-align: center;
     font-size: 64px;
-    padding: 92px 32px;
+    padding: 64px 32px;
     cursor: pointer;
 }
 
