@@ -128,20 +128,26 @@ export class CreatePostComponent implements OnInit {
             element.postId = postId;
         });
 
-        this.photoService
-            .uploadPhotos(this.photosForUpload)
-            .subscribe(
-                () => {
-                    this.postListComponent.getPosts();
-                },
-                (error) => {
-                    this.alertifyService.error(error.error.title);
-                }
-            )
-            .add(() => {
-                this.showPostButtons = false;
-                this.processingForm = false;
-            });
+        if (
+            this.photosForUpload &&
+            this.photosForUpload.photos &&
+            this.photosForUpload.photos.length > 0
+        ) {
+            this.photoService
+                .uploadPhotos(this.photosForUpload)
+                .subscribe(
+                    () => {
+                        this.postListComponent.getPosts();
+                    },
+                    (error) => {
+                        this.alertifyService.error(error.error.title);
+                    }
+                )
+                .add(() => {
+                    this.showPostButtons = false;
+                    this.processingForm = false;
+                });
+        }
     }
 
     // drag and drop
