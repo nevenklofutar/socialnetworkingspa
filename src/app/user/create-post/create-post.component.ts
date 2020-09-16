@@ -147,6 +147,8 @@ export class CreatePostComponent implements OnInit {
                     this.showPostButtons = false;
                     this.processingForm = false;
                 });
+        } else {
+            this.postListComponent.getPosts();
         }
     }
 
