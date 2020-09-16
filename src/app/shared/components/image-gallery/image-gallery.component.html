@@ -2,8 +2,7 @@
     <div *ngIf="photos.length === 1">
         <img
             [src]="photo.url"
-            width="100%"
-            class="image"
+            class="image center-cropped center-cropped-1"
             *ngFor="let photo of photos; let i = index"
             (click)="open(i)"
         />
@@ -11,9 +10,7 @@
     <div *ngIf="photos.length === 2">
         <img
             [src]="photo.url"
-            width="50%"
-            height="195"
-            class="image"
+            class="image center-cropped center-cropped-2"
             *ngFor="let photo of photos; let i = index"
             (click)="open(i)"
         />
@@ -21,9 +18,7 @@
     <div *ngIf="photos.length === 3">
         <img
             [src]="photo.url"
-            width="33%"
-            height="138"
-            class="image"
+            class="image center-cropped center-cropped-3"
             *ngFor="let photo of photos; let i = index"
             (click)="open(i)"
         />
@@ -31,9 +26,7 @@
     <div *ngIf="photos.length > 3">
         <img
             [src]="photo.url"
-            width="33%"
-            height="138"
-            class="image"
+            class="image center-cropped center-cropped-3"
             *ngFor="let photo of photos | slice: 0:3; let i = index"
             (click)="open(i)"
         />

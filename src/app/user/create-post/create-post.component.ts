@@ -133,6 +133,7 @@ export class CreatePostComponent implements OnInit {
             this.photosForUpload.photos &&
             this.photosForUpload.photos.length > 0
         ) {
+            console.log('has images');
             this.photoService
                 .uploadPhotos(this.photosForUpload)
                 .subscribe(
@@ -148,6 +149,7 @@ export class CreatePostComponent implements OnInit {
                     this.processingForm = false;
                 });
         } else {
+            console.log('doesnt have images');
             this.postListComponent.getPosts();
         }
     }
